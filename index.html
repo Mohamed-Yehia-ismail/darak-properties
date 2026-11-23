@@ -1,0 +1,854 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>دارك · Darak Properties</title>
+<meta name="description" content="دارك للعقارات: شقق وفلل وشاليهات في التجمع الخامس والشيخ زايد والعاصمة الإدارية والساحل الشمالي، مع خطط التقسيط وحاسبة العائد.">
+<meta name="theme-color" content="#0e4d64">
+<meta property="og:title" content="دارك · Darak Properties Egypt">
+<meta property="og:description" content="Homes in New Cairo, Sheikh Zayed, the New Capital and the North Coast, with payment plans and an investment calculator.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=El+Messiri:wght@500;600;700&family=IBM+Plex+Sans+Arabic:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap">
+<script type="application/ld+json">
+{"@context":"https://schema.org","@type":"RealEstateAgent","name":"Darak Properties","address":{"@type":"PostalAddress","streetAddress":"90th Street","addressLocality":"New Cairo","addressRegion":"Cairo","addressCountry":"EG"},"areaServed":["Cairo","North Coast","Ain Sokhna"],"availableLanguage":["Arabic","English"]}
+</script>
+<script>
+  (function () {
+    var r = document.documentElement, lang = null, th = null;
+    try { lang = localStorage.getItem('darak.lang'); th = localStorage.getItem('darak.theme'); } catch (e) {}
+    lang = lang || 'ar'; r.lang = lang; r.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    if (th) r.setAttribute('data-theme', th);
+  })();
+</script>
+<style>
+/* Layout: skyline hero with search, then a two-column search (filters | results) synced with a map of Istanbul; dialog for listing details; citizenship + contact bands. */
+:root{
+  --bg:#f1f4f4; --surface:#ffffff; --soft:#e5eeef; --ink:#13232b; --muted:#5a6b72; --line:#d6dfe1;
+  --sea:#0e4d64; --sea-ink:#ffffff; --sea-soft:#d5e7ec; --gold:#b88420; --good:#1f8a5b; --bad:#c2453b;
+  --water:#cfe3ea; --land:#f7f5ef; --land2:#ece8dc;
+  --sky1:#dfeef3; --sky2:#f6efe2; --city:#0e4d64;
+  --display:"El Messiri","IBM Plex Sans Arabic",system-ui,sans-serif;
+  --body:"IBM Plex Sans Arabic",system-ui,-apple-system,"Segoe UI",Tahoma,sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0b151a; --surface:#112028; --soft:#172b35; --ink:#e3ecef; --muted:#8aa0a9; --line:#203641;
+  --sea:#58b7d4; --sea-ink:#06202a; --sea-soft:#163a47; --gold:#e8b955; --good:#4cc38a; --bad:#ef7b70;
+  --water:#123947; --land:#16252c; --land2:#1b2e37;
+  --sky1:#0b1d2b; --sky2:#1f2a3a; --city:#06121a; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0b151a; --surface:#112028; --soft:#172b35; --ink:#e3ecef; --muted:#8aa0a9; --line:#203641;
+  --sea:#58b7d4; --sea-ink:#06202a; --sea-soft:#163a47; --gold:#e8b955; --good:#4cc38a; --bad:#ef7b70;
+  --water:#123947; --land:#16252c; --land2:#1b2e37;
+  --sky1:#0b1d2b; --sky2:#1f2a3a; --city:#06121a; color-scheme:dark}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:84px}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:var(--body);font-size:15.5px;line-height:1.75;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:60;background:var(--surface)}
+button,input,select,textarea{font:inherit;color:inherit}
+svg{max-width:100%}
+a{color:var(--sea)}
+:focus-visible{outline:2px solid var(--gold);outline-offset:3px;border-radius:6px}
+.wrap{max-width:1240px;margin-inline:auto;padding-left:max(18px,env(safe-area-inset-left,0px));padding-right:max(18px,env(safe-area-inset-right,0px))}
+.ltr{direction:ltr;unicode-bidi:isolate;display:inline-block}
+.num{font-variant-numeric:tabular-nums}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:.45rem;border-radius:10px;padding:.7rem 1.15rem;font-weight:600;text-decoration:none;cursor:pointer;border:1px solid transparent;font-size:.93rem}
+.btn.primary{background:var(--sea);color:var(--sea-ink)}
+.btn.primary:hover{filter:brightness(1.08)}
+.btn.ghost{background:var(--surface);border-color:var(--line);color:var(--ink)}
+.btn.ghost:hover{border-color:var(--sea)}
+.btn.sm{padding:.4rem .75rem;font-size:.85rem}
+
+.bar{position:sticky;top:env(safe-area-inset-top,0px);z-index:50;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:blur(10px);border-bottom:1px solid var(--line)}
+.bar .wrap{display:flex;align-items:center;gap:1rem;height:66px}
+.logo{display:flex;align-items:center;gap:.55rem;color:var(--ink);text-decoration:none}
+.logo svg{width:36px;height:36px}
+.logo b{font-family:var(--display);font-size:1.45rem;line-height:1}
+.logo small{display:block;font-size:.64rem;letter-spacing:.16em;color:var(--muted)}
+.nav{display:flex;gap:.15rem;margin-inline-start:auto}
+.nav a{color:var(--muted);text-decoration:none;padding:.4rem .7rem;border-radius:9px;font-size:.9rem}
+.nav a:hover{background:var(--soft);color:var(--ink)}
+.tools{display:flex;align-items:center;gap:.45rem}
+.seg{display:inline-flex;border:1px solid var(--line);border-radius:10px;padding:2px;background:var(--surface)}
+.seg button{border:0;background:transparent;border-radius:8px;padding:.3rem .6rem;cursor:pointer;font-size:.8rem;color:var(--muted);font-weight:600}
+.seg button[aria-pressed="true"]{background:var(--sea);color:var(--sea-ink)}
+.icon{width:38px;height:38px;border-radius:10px;border:1px solid var(--line);background:var(--surface);display:grid;place-items:center;cursor:pointer;position:relative}
+.icon svg{width:18px;height:18px}
+.badge{position:absolute;top:-6px;inset-inline-end:-6px;min-width:19px;height:19px;border-radius:99px;background:var(--bad);color:#fff;font-size:.7rem;display:grid;place-items:center;padding:0 4px}
+.badge[data-n="0"]{display:none}
+@media (max-width:1000px){.nav{display:none}.tools{margin-inline-start:auto}}
+
+/* hero */
+.hero{position:relative;overflow:hidden;border-bottom:1px solid var(--line)}
+.hero svg.sky{position:absolute;inset:0;width:100%;height:100%;display:block}
+.hero .wrap{position:relative;padding-block:3.2rem 15rem}
+.hero h1{font-family:var(--display);font-size:clamp(2.1rem,5vw,3.6rem);line-height:1.3;margin:0 0 .7rem;max-width:18ch;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--gold)}
+.hero p{margin:0;max-width:52ch;color:var(--muted);font-size:1.05rem}
+.search{margin-top:1.6rem;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:.6rem;display:grid;grid-template-columns:repeat(3,minmax(0,1fr)) auto;gap:.5rem;max-width:820px;box-shadow:0 20px 50px -25px rgba(8,40,55,.35)}
+.search label{display:grid;gap:.1rem;padding:.25rem .7rem;border-radius:10px;min-width:0}
+.search label:hover{background:var(--soft)}
+.search span{font-size:.75rem;color:var(--muted)}
+.search select{border:0;background:transparent;outline:0;padding:0;font-weight:600;width:100%;min-width:0}
+@media (max-width:760px){.search{grid-template-columns:1fr 1fr}.search .btn{grid-column:1/-1}}
+.boat{animation:sail 38s linear infinite}
+.boat.b2{animation-duration:55s;animation-delay:-20s}
+@keyframes sail{from{transform:translateX(-120px)}to{transform:translateX(1500px)}}
+
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:1rem;margin-top:-3.2rem;position:relative}
+.stat{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:1rem 1.1rem}
+.stat b{display:block;font-family:var(--display);font-size:1.55rem;line-height:1.3}
+.stat > span{font-size:.82rem;color:var(--muted)}
+@media (max-width:520px){.logo small{display:none}}
+@media (max-width:820px){.stats{grid-template-columns:1fr 1fr}}
+
+section.band{padding-block:3.6rem}
+.eyebrow{color:var(--gold);font-weight:700;font-size:.85rem}
+h2{font-family:var(--display);font-size:clamp(1.6rem,3.2vw,2.3rem);line-height:1.35;margin:.2rem 0 .4rem;text-wrap:balance}
+.head{display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:1rem 2rem;margin-bottom:1.4rem}
+.head p{margin:0;color:var(--muted);max-width:56ch}
+
+/* search layout */
+.layout{display:grid;grid-template-columns:270px minmax(0,1fr);gap:1.4rem;align-items:start}
+.filters{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.1rem;position:sticky;top:84px;display:grid;gap:1.1rem}
+.fgroup{display:grid;gap:.45rem}
+.fgroup > b{font-size:.85rem}
+.checks{display:grid;gap:.15rem;max-height:200px;overflow:auto;padding-inline-end:4px}
+.checks label{display:flex;align-items:center;gap:.5rem;font-size:.88rem;cursor:pointer;padding:.12rem 0}
+.checks small{margin-inline-start:auto;color:var(--muted);font-variant-numeric:tabular-nums}
+input[type="checkbox"]{accent-color:var(--sea);width:16px;height:16px}
+.chips{display:flex;flex-wrap:wrap;gap:.35rem}
+.chip{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:.25rem .7rem;font-size:.82rem;cursor:pointer}
+.chip[aria-pressed="true"]{background:var(--sea);color:var(--sea-ink);border-color:var(--sea)}
+.range{position:relative;height:28px;direction:ltr}
+.range input{position:absolute;inset:0;width:100%;pointer-events:none;-webkit-appearance:none;appearance:none;background:transparent;margin:0}
+.range input::-webkit-slider-thumb{pointer-events:auto;-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:var(--sea);border:3px solid var(--surface);box-shadow:0 0 0 1px var(--sea);cursor:pointer}
+.range input::-moz-range-thumb{pointer-events:auto;width:14px;height:14px;border-radius:50%;background:var(--sea);border:3px solid var(--surface);cursor:pointer}
+.range .track{position:absolute;top:12px;left:0;right:0;height:4px;border-radius:4px;background:var(--line)}
+.range .fill{position:absolute;top:12px;height:4px;border-radius:4px;background:var(--sea)}
+.rlabels{direction:ltr;display:flex;justify-content:space-between;font-size:.8rem;color:var(--muted)}
+.toggle{display:flex;align-items:center;justify-content:space-between;gap:.5rem;font-size:.88rem;cursor:pointer}
+.toggle input{width:34px;height:20px;-webkit-appearance:none;appearance:none;background:var(--line);border-radius:99px;position:relative;cursor:pointer;transition:background .2s;flex:none}
+.toggle input::after{content:"";position:absolute;top:2px;inset-inline-start:2px;width:16px;height:16px;border-radius:50%;background:#fff;transition:inset .2s}
+.toggle input:checked{background:var(--sea)}
+.toggle input:checked::after{inset-inline-start:16px}
+.ftoggle{display:none}
+@media (max-width:960px){.layout{grid-template-columns:1fr}.filters{position:static;display:none}.filters.open{display:grid}.ftoggle{display:inline-flex}}
+
+.toolbar{display:flex;flex-wrap:wrap;align-items:center;gap:.6rem;margin-bottom:1rem}
+.toolbar .count{font-weight:600}
+.toolbar select{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:.45rem .6rem;margin-inline-start:auto}
+.cards{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:1rem}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;display:flex;flex-direction:column;transition:border-color .2s,box-shadow .2s;min-width:0}
+.card:hover,.card.hl{border-color:var(--sea);box-shadow:0 14px 30px -18px rgba(8,40,55,.45)}
+.card .pic{position:relative;aspect-ratio:16/10;background:linear-gradient(180deg,var(--sky1),var(--sky2));cursor:pointer}
+.card .pic svg{width:100%;height:100%;display:block}
+.flags{position:absolute;top:.6rem;inset-inline-start:.6rem;display:flex;flex-wrap:wrap;gap:.3rem;max-width:80%}
+.flag{font-size:.7rem;font-weight:700;padding:.12rem .5rem;border-radius:6px;background:var(--surface);color:var(--ink)}
+.flag.cit{background:var(--gold);color:#1b1404}
+.flag.new{background:var(--sea);color:var(--sea-ink)}
+.fav{position:absolute;top:.5rem;inset-inline-end:.5rem;width:34px;height:34px;border-radius:50%;border:0;background:var(--surface);display:grid;place-items:center;cursor:pointer}
+.fav svg{width:17px;height:17px}
+.fav[aria-pressed="true"] svg{fill:var(--bad);stroke:var(--bad)}
+.card .body{padding:.9rem 1rem 1rem;display:grid;gap:.35rem;flex:1}
+.card .loc{font-size:.8rem;color:var(--muted)}
+.card h3{margin:0;font-size:1rem;line-height:1.5;cursor:pointer}
+.specs{display:flex;flex-wrap:wrap;gap:.25rem .8rem;font-size:.82rem;color:var(--muted)}
+.specs b{color:var(--ink);font-weight:600}
+.price-row{display:flex;justify-content:space-between;align-items:end;gap:.5rem;margin-top:.3rem;padding-top:.6rem;border-top:1px solid var(--line)}
+.price{font-family:var(--display);font-size:1.35rem;line-height:1.2}
+.ppm{font-size:.75rem;color:var(--muted)}
+.cmp{display:flex;align-items:center;gap:.35rem;font-size:.8rem;color:var(--muted);cursor:pointer}
+.empty{padding:3rem 1rem;text-align:center;color:var(--muted);border:1px dashed var(--line);border-radius:16px;grid-column:1/-1}
+
+/* map */
+.map-wrap{background:var(--surface);border:1px solid var(--line);border-radius:18px;overflow:hidden}
+.map-wrap svg{width:100%;display:block;direction:ltr}
+.pin{cursor:pointer}
+.pin circle.dot{transition:r .2s}
+.pin:hover circle.dot,.pin.on circle.dot{r:19}
+.pin.on .ring{stroke:var(--gold)}
+.pin text{pointer-events:none}
+.map-legend{display:flex;flex-wrap:wrap;gap:1rem;padding:.8rem 1.1rem;border-top:1px solid var(--line);font-size:.82rem;color:var(--muted)}
+
+/* dialog */
+dialog{border:0;padding:0;border-radius:20px;background:var(--surface);color:var(--ink);width:min(1000px,calc(100% - 24px));max-height:calc(100% - 24px);box-shadow:0 40px 80px -20px rgba(0,0,0,.45)}
+dialog::backdrop{background:rgba(5,15,20,.6)}
+.dlg-head{display:flex;justify-content:space-between;align-items:center;gap:1rem;padding:1rem 1.2rem;border-bottom:1px solid var(--line);position:sticky;top:0;background:var(--surface);z-index:2}
+.dlg-head h3{margin:0;font-family:var(--display);font-size:1.3rem;line-height:1.4}
+.dlg-body{padding:1.2rem;display:grid;grid-template-columns:minmax(0,1.25fr) minmax(0,1fr);gap:1.4rem}
+@media (max-width:860px){.dlg-body{grid-template-columns:1fr}}
+.views{display:flex;gap:.35rem;margin-bottom:.6rem}
+.viewbox{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--soft)}
+.viewbox svg{width:100%;display:block;direction:ltr}
+.facts{display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;margin:.9rem 0}
+.facts div{background:var(--soft);border-radius:10px;padding:.5rem .7rem}
+.facts span{display:block;font-size:.75rem;color:var(--muted)}
+.facts b{font-variant-numeric:tabular-nums}
+.feat{display:flex;flex-wrap:wrap;gap:.35rem}
+.feat span{font-size:.78rem;border:1px solid var(--line);border-radius:999px;padding:.12rem .6rem}
+.calc{background:var(--soft);border-radius:14px;padding:1rem;display:grid;gap:.6rem}
+.calc h4{margin:0;font-size:.95rem}
+.crow{display:flex;justify-content:space-between;gap:1rem;font-size:.88rem}
+.crow.total{font-weight:700;border-top:1px solid var(--line);padding-top:.5rem}
+.slider{width:100%;accent-color:var(--sea)}
+.note{font-size:.78rem;color:var(--muted)}
+
+/* compare bar */
+.cmpbar{position:fixed;bottom:calc(14px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,140%);background:var(--ink);color:var(--bg);border-radius:14px;padding:.55rem .6rem .55rem 1rem;display:flex;align-items:center;gap:.8rem;z-index:55;transition:transform .3s;max-width:calc(100% - 24px)}
+.cmpbar.on{transform:translate(-50%,0)}
+.cmpbar .btn{background:var(--gold);color:#1b1404}
+.cmpbar button.x{background:transparent;border:0;color:inherit;opacity:.7;cursor:pointer}
+.ctable{width:100%;border-collapse:collapse;font-size:.9rem;min-width:560px}
+.ctable th,.ctable td{padding:.6rem .7rem;border-bottom:1px solid var(--line);text-align:start;vertical-align:top}
+.ctable th{color:var(--muted);font-weight:500;width:22%}
+.ctable td.best{color:var(--good);font-weight:700}
+.scroll-x{overflow-x:auto}
+
+/* citizenship */
+.cit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.4rem;align-items:start}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:1.2rem}
+.rules{display:grid;gap:.7rem;margin:0;padding:0;list-style:none}
+.rules li{display:grid;grid-template-columns:30px 1fr;gap:.6rem}
+.rules li span{width:30px;height:30px;border-radius:9px;background:var(--sea-soft);color:var(--sea);display:grid;place-items:center;font-weight:700;font-family:var(--display)}
+.rules b{display:block}
+.rules p{margin:0;color:var(--muted);font-size:.88rem}
+.basket{display:grid;gap:.1rem;max-height:300px;overflow:auto;margin:.6rem 0}
+.basket label{display:grid;grid-template-columns:auto 1fr auto;gap:.6rem;align-items:center;padding:.4rem .2rem;border-bottom:1px solid var(--line);font-size:.88rem;cursor:pointer}
+.basket small{color:var(--muted)}
+.meter{height:10px;border-radius:99px;background:var(--soft);overflow:hidden}
+.meter i{display:block;height:100%;background:var(--gold);transition:width .35s}
+.meter.ok i{background:var(--good)}
+.verdict{font-weight:700;margin-top:.5rem}
+.verdict.ok{color:var(--good)}
+@media (max-width:900px){.cit{grid-template-columns:1fr}}
+
+/* contact */
+.contact{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:1.4rem}
+.fields{display:grid;grid-template-columns:1fr 1fr;gap:.8rem}
+.field{display:grid;gap:.3rem;min-width:0}
+.field.full{grid-column:1/-1}
+.field label{font-size:.82rem;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:.6rem .75rem;outline:0}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--sea)}
+.field .err{color:var(--bad);font-size:.76rem;min-height:1em}
+.field.bad input{border-color:var(--bad)}
+.msg{white-space:pre-wrap;background:var(--bg);border:1px solid var(--line);border-radius:10px;padding:.8rem;font-size:.84rem;max-height:220px;overflow:auto;margin:.6rem 0}
+.row{display:flex;flex-wrap:wrap;gap:.5rem}
+@media (max-width:860px){.contact{grid-template-columns:1fr}.fields{grid-template-columns:1fr}}
+footer{border-top:1px solid var(--line);padding-block:2rem 3rem;color:var(--muted);font-size:.85rem}
+footer .wrap{display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem}
+.toast{position:fixed;bottom:calc(80px + env(safe-area-inset-bottom,0px));left:50%;transform:translate(-50%,20px);background:var(--ink);color:var(--bg);padding:.55rem 1rem;border-radius:12px;font-size:.88rem;opacity:0;pointer-events:none;transition:all .25s;z-index:90;max-width:calc(100% - 32px)}
+.toast.on{opacity:1;transform:translate(-50%,0)}
+
+:root[lang="en"]{--display:"Plus Jakarta Sans",system-ui,sans-serif;--body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",sans-serif}
+:root[lang="en"] .hero h1{letter-spacing:-.02em;line-height:1.15}
+@media (max-width:520px){.logo small{display:none}}
+.more-row{display:flex;justify-content:center;margin-top:1.2rem}
+.calc-in{display:grid;gap:.9rem}
+.calc-in label b{color:var(--ink)}
+.roi-grid{display:grid;grid-template-columns:1fr 1fr;gap:.7rem;margin-bottom:1rem}
+.roi-grid div{background:var(--soft);border-radius:12px;padding:.8rem 1rem}
+.roi-grid div > span{display:block;font-size:.8rem;color:var(--muted)}
+.roi-grid b{font-family:var(--display);font-size:1.45rem;line-height:1.3}
+.verdict.low{color:var(--bad)}
+.toggle span{flex:1}
+</style>
+</head>
+<body>
+<header class="bar">
+  <div class="wrap">
+    <a class="logo" href="#top" aria-label="Darak Properties">
+      <svg viewBox="0 0 40 40" aria-hidden="true"><path d="M5 19 20 7l15 12" fill="none" stroke="var(--sea)" stroke-width="2.4" stroke-linejoin="round"/><path d="M9 17v16h22V17" fill="none" stroke="var(--sea)" stroke-width="2.4"/><path d="M16 33v-8a4 4 0 0 1 8 0v8" fill="none" stroke="var(--gold)" stroke-width="2.4"/><circle cx="20" cy="15.5" r="2" fill="var(--gold)"/></svg>
+      <span><b data-i18n="brand">دارك</b><small>DARAK PROPERTIES · EGYPT</small></span>
+    </a>
+    <nav class="nav" aria-label="main"><a href="#listings" data-i18n="nList">العقارات</a><a href="#map" data-i18n="nMap">الخريطة</a><a href="#invest" data-i18n="nInvest">حاسبة العائد</a><a href="#contact" data-i18n="nContact">تواصل</a></nav>
+    <div class="tools">
+      <div class="seg" role="group" aria-label="Currency" id="cur"><button type="button" data-cur="EGP" aria-pressed="true">EGP</button><button type="button" data-cur="USD" aria-pressed="false">$</button></div>
+      <button class="icon" type="button" id="langBtn" aria-label="Language" style="font-weight:700;font-size:.8rem">EN</button>
+      <button class="icon" type="button" id="favBtn" aria-label="Favourites"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg><span class="badge" id="favCount" data-n="0">0</span></button>
+      <button class="icon" type="button" id="themeBtn" aria-label="Dark mode"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/></svg></button>
+    </div>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero">
+    <svg class="sky" id="sky" viewBox="0 0 1400 520" preserveAspectRatio="xMidYMax slice" aria-hidden="true"></svg>
+    <div class="wrap">
+      <h1 data-i18n-html="h1">بيتك في مصر، <em>بخطة سداد واضحة</em> من أول يوم</h1>
+      <p data-i18n="lead">وحدات مختارة من أفضل المطورين في القاهرة الجديدة والشيخ زايد والعاصمة الإدارية والساحل. قارن خطط التقسيط، شاهد مخطط الوحدة، واحسب العائد قبل أن تقرر.</p>
+      <form class="search" id="heroSearch">
+        <label><span data-i18n="sArea">المنطقة</span><select id="hDistrict"></select></label>
+        <label><span data-i18n="sType">نوع الوحدة</span><select id="hType"></select></label>
+        <label><span data-i18n="sBudget">الميزانية القصوى</span><select id="hBudget"></select></label>
+        <button class="btn primary" type="submit" data-i18n="sGo">ابحث</button>
+      </form>
+    </div>
+  </section>
+
+  <div class="wrap"><div class="stats" id="stats"></div></div>
+
+  <section class="band" id="listings">
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow" data-i18n="lEyebrow">الوحدات المتاحة</div><h2 data-i18n="lTitle">وحدات مختارة في أهم المناطق</h2></div><p data-i18n="lLead">الأسعار من المطور مباشرة أو من المالك في وحدات إعادة البيع. خطط السداد حسب كل مشروع.</p></div>
+      <div class="layout">
+        <aside class="filters" id="filters" aria-label="Filters">
+          <div class="fgroup"><b data-i18n="fArea">المنطقة</b><div class="checks" id="fDistricts"></div></div>
+          <div class="fgroup"><b data-i18n="fType">نوع الوحدة</b><div class="chips" id="fTypes"></div></div>
+          <div class="fgroup"><b data-i18n="fBeds">غرف النوم</b><div class="chips" id="fBeds"></div></div>
+          <div class="fgroup"><b data-i18n="fPrice">السعر</b>
+            <div class="range"><div class="track"></div><div class="fill" id="rFill"></div><input type="range" id="pMin" min="0" max="70000000" step="500000" value="0" aria-label="Min price"><input type="range" id="pMax" min="0" max="70000000" step="500000" value="70000000" aria-label="Max price"></div>
+            <div class="rlabels"><span id="pMinL"></span><span id="pMaxL"></span></div>
+          </div>
+          <div class="fgroup">
+            <label class="toggle"><span data-i18n="tReady">استلام فوري</span><input type="checkbox" data-t="ready"></label>
+            <label class="toggle"><span data-i18n="tInst">تقسيط من المطور</span><input type="checkbox" data-t="inst"></label>
+            <label class="toggle"><span data-i18n="tFull">تشطيب كامل</span><input type="checkbox" data-t="full"></label>
+            <label class="toggle"><span data-i18n="tSea">إطلالة على البحر أو اللاجون</span><input type="checkbox" data-t="sea"></label>
+            <label class="toggle"><span data-i18n="tFav">المفضلة فقط</span><input type="checkbox" data-t="fav"></label>
+          </div>
+          <button class="btn ghost sm" type="button" id="reset" data-i18n="reset">مسح الفلاتر</button>
+        </aside>
+        <div>
+          <div class="toolbar">
+            <button class="btn ghost sm ftoggle" type="button" id="ftoggle" aria-expanded="false" data-i18n="filtersBtn">الفلاتر</button>
+            <span class="count" id="count" aria-live="polite"></span>
+            <select id="sort" aria-label="Sort"></select>
+          </div>
+          <div class="cards" id="cards"></div>
+          <div class="more-row"><button class="btn ghost" type="button" id="more" hidden></button></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="map" style="padding-top:0">
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow" data-i18n="mEyebrow">الخريطة</div><h2 data-i18n="mTitle">أين تقع الوحدات؟</h2></div><p data-i18n="mLead">الرقم على كل منطقة هو عدد الوحدات المطابقة لبحثك. اضغط على منطقة لتصفية النتائج.</p></div>
+      <div class="map-wrap"><svg id="mapSvg" viewBox="0 0 800 500" role="img" aria-label="Map"></svg>
+        <div class="map-legend"><span data-i18n="mNote">خريطة توضيحية للقاهرة الكبرى، والساحل والسخنة على الأطراف.</span><span id="mapHint"></span></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="invest" style="border-top:1px solid var(--line)">
+    <div class="wrap">
+      <div class="head"><div><div class="eyebrow" data-i18n="iEyebrow">حاسبة العائد</div><h2 data-i18n="iTitle">هل هذه الوحدة استثمار جيد؟</h2></div><p data-i18n="iLead">اختر وحدة، وعدّل الإيجار المتوقع ونسبة الإشغال، لترى العائد السنوي ومدة استرداد رأس المال.</p></div>
+      <div class="cit">
+        <div class="panel calc-in">
+          <div class="field"><label for="iUnit" data-i18n="iUnit">الوحدة</label><select id="iUnit"></select></div>
+          <div class="field"><label for="iRent"><span data-i18n="iRent">الإيجار الشهري المتوقع</span> <b id="iRentL"></b></label><input class="slider" type="range" id="iRent" min="5000" max="300000" step="1000"></div>
+          <div class="field"><label for="iOcc"><span data-i18n="iOcc">نسبة الإشغال</span> <b id="iOccL"></b></label><input class="slider" type="range" id="iOcc" min="30" max="100" step="5" value="85"></div>
+          <div class="field"><label for="iCost"><span data-i18n="iCost">مصروفات سنوية (صيانة وإدارة)</span> <b id="iCostL"></b></label><input class="slider" type="range" id="iCost" min="0" max="30" step="1" value="10"></div>
+          <p class="note" data-i18n="iNote">الإيجار المقترح يُحسب من متوسط المنطقة، ويمكنك تعديله.</p>
+        </div>
+        <div class="panel">
+          <div class="roi" id="roi"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="contact" style="border-top:1px solid var(--line)">
+    <div class="wrap contact">
+      <div>
+        <div class="eyebrow" data-i18n="cEyebrow">تواصل معنا</div>
+        <h2 data-i18n="cTitle">نحجز لك معاينة، في الموقع أو بالفيديو</h2>
+        <p style="color:var(--muted)" data-i18n="cLead">مستشار يرافقك من أول معاينة حتى توقيع العقد واستلام الوحدة. مكتبنا في شارع التسعين، القاهرة الجديدة.</p>
+        <div class="panel" style="margin-top:1rem;display:grid;gap:.5rem;font-size:.92rem">
+          <div><span data-i18n="cAddrL">العنوان</span>: <span data-i18n="cAddr">شارع التسعين الشمالي، التجمع الخامس، القاهرة الجديدة</span></div>
+          <div><span data-i18n="cPhoneL">الهاتف وواتساب</span>: <span class="ltr" id="phoneTxt"></span></div>
+          <div data-i18n="cHours">من السبت إلى الخميس، ١٠ صباحاً حتى ٨ مساءً</div>
+        </div>
+      </div>
+      <form class="panel" id="contactForm" novalidate>
+        <div class="fields">
+          <div class="field"><label for="cName" data-i18n="cName">الاسم</label><input id="cName" autocomplete="name"><span class="err"></span></div>
+          <div class="field"><label for="cPhone" data-i18n="cPhone">رقم واتساب مع رمز الدولة</label><input id="cPhone" type="tel" inputmode="tel" placeholder="+20 10x xxx xxxx" autocomplete="tel"><span class="err"></span></div>
+          <div class="field"><label for="cGoal" data-i18n="cGoal">الهدف من الشراء</label><select id="cGoal"></select></div>
+          <div class="field"><label for="cTour" data-i18n="cTour">نوع المعاينة</label><select id="cTour"></select></div>
+          <div class="field full"><label for="cMsg" data-i18n="cMsg">الوحدات التي تهمك</label><textarea id="cMsg" rows="3"></textarea></div>
+        </div>
+        <button class="btn primary" type="submit" style="width:100%;margin-top:.8rem" data-i18n="cSend">جهّز رسالة الطلب</button>
+        <div id="contactOut"></div>
+      </form>
+    </div>
+  </section>
+</main>
+
+<footer><div class="wrap"><span>© <span id="yr"></span> Darak · <span data-i18n="demo">مشروع تجريبي ضمن معرض أعمال · سعر الصرف تقريبي للعرض</span></span><span data-i18n="credit">تصميم وبرمجة: محمد يحيى</span></div></footer>
+
+<div class="cmpbar" id="cmpbar" aria-live="polite"><span id="cmpTxt"></span><button class="btn sm" type="button" id="cmpOpen" data-i18n="cmpGo">قارن الآن</button><button class="x" type="button" id="cmpClear" aria-label="Clear">✕</button></div>
+<dialog id="dlg" aria-labelledby="dlgTitle"></dialog>
+<dialog id="cmpDlg" aria-label="Compare"></dialog>
+<div class="toast" id="toast" role="status"></div>
+
+<script>
+(function () {
+  'use strict';
+
+  var CONFIG = {
+    whatsapp: '201000000000',
+    usdRate: 50,            // EGP per USD, approximate, for display only
+    maintenance: 0.08,      // maintenance deposit, usually 5 to 10 percent
+    contractFees: 0.01,     // contract and registration costs, approximate
+    pageSize: 9
+  };
+  var lang = document.documentElement.lang === 'en' ? 'en' : 'ar';
+  var LI = function () { return lang === 'ar' ? 0 : 1; };
+
+  var I = {
+    brand: ['دارك', 'Darak'], nList: ['العقارات', 'Listings'], nMap: ['الخريطة', 'Map'], nInvest: ['حاسبة العائد', 'ROI calculator'], nContact: ['تواصل', 'Contact'],
+    h1: ['بيتك في مصر، <em>بخطة سداد واضحة</em> من أول يوم', 'Your home in Egypt, <em>with a clear payment plan</em> from day one'],
+    lead: ['وحدات مختارة من أفضل المطورين في القاهرة الجديدة والشيخ زايد والعاصمة الإدارية والساحل. قارن خطط التقسيط، شاهد مخطط الوحدة، واحسب العائد قبل أن تقرر.', 'Selected units from leading developers in New Cairo, Sheikh Zayed, the New Capital and the coast. Compare payment plans, see the floor plan and work out the return before you decide.'],
+    sArea: ['المنطقة', 'Area'], sType: ['نوع الوحدة', 'Unit type'], sBudget: ['الميزانية القصوى', 'Max budget'], sGo: ['ابحث', 'Search'], anyArea: ['كل المناطق', 'All areas'], anyType: ['كل الأنواع', 'All types'], noLimit: ['بدون حد', 'No limit'],
+    lEyebrow: ['الوحدات المتاحة', 'Available units'], lTitle: ['وحدات مختارة في أهم المناطق', 'Selected units in the best locations'],
+    lLead: ['الأسعار من المطور مباشرة أو من المالك في وحدات إعادة البيع. خطط السداد حسب كل مشروع.', 'Prices come from the developer, or from the owner for resale units. Payment plans differ by project.'],
+    fArea: ['المنطقة', 'Area'], fType: ['نوع الوحدة', 'Unit type'], fBeds: ['غرف النوم', 'Bedrooms'], fPrice: ['السعر', 'Price'],
+    tReady: ['استلام فوري', 'Ready to move'], tInst: ['تقسيط من المطور', 'Developer installments'], tFull: ['تشطيب كامل', 'Fully finished'], tSea: ['إطلالة على البحر أو اللاجون', 'Sea or lagoon view'], tFav: ['المفضلة فقط', 'Favourites only'],
+    reset: ['مسح الفلاتر', 'Clear filters'], filtersBtn: ['الفلاتر', 'Filters'], units: ['وحدة', 'units'], more: ['عرض المزيد ({n} متبقية)', 'Show more ({n} left)'],
+    sortNew: ['الأحدث', 'Newest'], sortPa: ['السعر: من الأقل', 'Price: low to high'], sortPd: ['السعر: من الأعلى', 'Price: high to low'], sortPpm: ['سعر المتر: من الأقل', 'Price per m²: low to high'], sortDown: ['أقل مقدم', 'Lowest down payment'],
+    empty: ['لا توجد وحدات بهذه الفلاتر. جرّب توسيع السعر أو إزالة منطقة.', 'No units match these filters. Try a wider price range or remove an area.'],
+    mEyebrow: ['الخريطة', 'Map'], mTitle: ['أين تقع الوحدات؟', 'Where are the units?'], mLead: ['الرقم على كل منطقة هو عدد الوحدات المطابقة لبحثك. اضغط على منطقة لتصفية النتائج.', 'The number on each area is how many units match your search. Click an area to filter.'],
+    mNote: ['خريطة توضيحية للقاهرة الكبرى، والساحل والسخنة على الأطراف.', 'Schematic map of Greater Cairo, with the coast and Sokhna at the edges.'], selected: ['المحدد: ', 'Selected: '],
+    nile: ['النيل', 'Nile'], km: ['كم', 'km'],
+    iEyebrow: ['حاسبة العائد', 'ROI calculator'], iTitle: ['هل هذه الوحدة استثمار جيد؟', 'Is this unit a good investment?'],
+    iLead: ['اختر وحدة، وعدّل الإيجار المتوقع ونسبة الإشغال، لترى العائد السنوي ومدة استرداد رأس المال.', 'Pick a unit, adjust the expected rent and occupancy, and see the yearly return and the payback period.'],
+    iUnit: ['الوحدة', 'Unit'], iRent: ['الإيجار الشهري المتوقع', 'Expected monthly rent'], iOcc: ['نسبة الإشغال', 'Occupancy'], iCost: ['مصروفات سنوية (صيانة وإدارة)', 'Yearly costs (maintenance and management)'],
+    iNote: ['الإيجار المقترح يُحسب من متوسط المنطقة، ويمكنك تعديله.', 'The suggested rent comes from the area average; you can change it.'],
+    rGross: ['العائد الإجمالي', 'Gross yield'], rNet: ['العائد الصافي', 'Net yield'], rYear: ['الدخل الصافي سنوياً', 'Net income per year'], rPay: ['مدة استرداد رأس المال', 'Payback period'], years: ['سنة', 'years'],
+    vGood: ['عائد قوي مقارنة بمتوسط السوق.', 'Strong return compared with the market average.'], vMid: ['عائد متوسط. قارن بوحدات أخرى في نفس المنطقة.', 'Average return. Compare with other units in the same area.'], vLow: ['عائد منخفض. هذه الوحدة أنسب للسكن من الاستثمار.', 'Low return. This unit suits living better than investing.'],
+    cEyebrow: ['تواصل معنا', 'Contact us'], cTitle: ['نحجز لك معاينة، في الموقع أو بالفيديو', 'Book a viewing, on site or by video'],
+    cLead: ['مستشار يرافقك من أول معاينة حتى توقيع العقد واستلام الوحدة. مكتبنا في شارع التسعين، القاهرة الجديدة.', 'An advisor stays with you from the first viewing to signing and handover. Our office is on 90th Street, New Cairo.'],
+    cAddrL: ['العنوان', 'Address'], cAddr: ['شارع التسعين الشمالي، التجمع الخامس، القاهرة الجديدة', 'North 90th Street, Fifth Settlement, New Cairo'], cPhoneL: ['الهاتف وواتساب', 'Phone and WhatsApp'], cHours: ['من السبت إلى الخميس، ١٠ صباحاً حتى ٨ مساءً', 'Saturday to Thursday, 10 am to 8 pm'],
+    cName: ['الاسم', 'Name'], cPhone: ['رقم واتساب مع رمز الدولة', 'WhatsApp number with country code'], cGoal: ['الهدف من الشراء', 'Buying for'], cTour: ['نوع المعاينة', 'Viewing type'], cMsg: ['الوحدات التي تهمك', 'Units you are interested in'], cMsgPh: ['اختر وحدات في المفضلة وستظهر هنا تلقائياً', 'Add units to favourites and they appear here'],
+    cSend: ['جهّز رسالة الطلب', 'Prepare my request'], goals: [['السكن', 'الاستثمار والإيجار', 'مصيف'], ['Living', 'Investment and rent', 'Summer home']], tours: [['معاينة في الموقع', 'جولة بالفيديو'], ['On-site viewing', 'Video tour']],
+    errName: ['اكتب اسمك', 'Please write your name'], errPhone: ['أدخل الرقم مع رمز الدولة، مثل +20 أو +966', 'Enter the number with country code, e.g. +20 or +966'],
+    msgHead: ['طلب معاينة من موقع دارك', 'Viewing request from the Darak website'], msgName: ['الاسم', 'Name'], msgGoal: ['الهدف', 'Goal'], msgTour: ['المعاينة', 'Viewing'], msgUnits: ['الوحدات', 'Units'], msgFav: ['المفضلة', 'Favourites'],
+    sendWa: ['إرسال على واتساب', 'Send on WhatsApp'], copy: ['نسخ النص', 'Copy text'], copied: ['تم النسخ', 'Copied'], waNote: ['إذا لم يفتح واتساب، أرسل النص إلى', 'If WhatsApp does not open, send the text to'],
+    favAdded: ['أضيفت إلى المفضلة', 'Added to favourites'], cmpMax: ['يمكنك مقارنة ٣ وحدات كحد أقصى', 'You can compare up to 3 units'], cmpOf: ['من ٣ للمقارنة', 'of 3 to compare'], cmpGo: ['قارن الآن', 'Compare now'], compare: ['قارن', 'Compare'],
+    stUnits: ['وحدة مطابقة لبحثك', 'units match your search'], stPpm: ['متوسط سعر المتر في النتائج', 'average price per m² in results'], stInst: ['وحدة بتقسيط ٧ سنوات أو أكثر', 'units with 7+ year plans'], stReady: ['وحدة جاهزة للاستلام', 'units ready to move'],
+    ready: ['استلام فوري', 'Ready to move'], deliver: ['استلام {y}', 'Delivery {y}'], resale: ['إعادة بيع', 'Resale'], newL: ['إطلاق جديد', 'New launch'],
+    down: ['مقدم', 'down'], over: ['على', 'over'], yrs: ['سنوات', 'years'], cashOnly: ['كاش فقط', 'Cash only'], perM2: ['للمتر', 'per m²'],
+    bedsS: ['غرف', 'beds'], bathsS: ['حمام', 'baths'], m2: ['م²', 'm²'], floorS: ['الدور', 'Floor'], of: ['من', 'of'],
+    plan: ['المخطط', 'Floor plan'], building: ['المبنى', 'Building'], planNote: ['المخطط توضيحي ومولّد من بيانات الوحدة.', 'Illustrative plan generated from the unit data.'], litFloor: ['الدور المضيء في صورة المبنى هو دور الوحدة.', 'The lit floor in the building view is the unit\'s floor.'],
+    fBedsL: ['غرف النوم', 'Bedrooms'], fBathsL: ['الحمامات', 'Bathrooms'], fArea2: ['المساحة', 'Area'], fFinish: ['التشطيب', 'Finishing'], fStatus: ['الاستلام', 'Handover'], fCompound: ['الكمبوند', 'Compound'],
+    finish: { full: ['تشطيب كامل', 'Fully finished'], semi: ['نصف تشطيب', 'Semi-finished'], core: ['على المحارة', 'Core and shell'] },
+    payTitle: ['خطة السداد', 'Payment plan'], downL: ['المقدم', 'Down payment'], yearsL: ['مدة التقسيط', 'Installment period'], freqL: ['الأقساط', 'Installments'], quarterly: ['ربع سنوية', 'Quarterly'], monthly: ['شهرية', 'Monthly'],
+    perQ: ['القسط الربع سنوي', 'Quarterly installment'], perM: ['القسط الشهري', 'Monthly installment'], cashNote: ['الدفع كاش عند التعاقد، مع إمكانية خصم يحدده المالك.', 'Cash on contract; the owner may offer a discount.'], cashDisc: ['خصم الكاش حتى {p}٪ إذا دفعت كامل المبلغ.', 'Up to {p}% off if you pay in full.'],
+    costTitle: ['تكاليف إضافية تقريبية', 'Approximate extra costs'], maint: ['وديعة الصيانة (حوالي ٨٪) عند الاستلام', 'Maintenance deposit (about 8%) at handover'], fees: ['مصاريف التعاقد والتسجيل (تقريباً)', 'Contract and registration costs (approx.)'], extraTotal: ['المجموع فوق السعر', 'Total on top of the price'],
+    askView: ['اطلب معاينة', 'Request a viewing'], share: ['نسخ رابط الوحدة', 'Copy unit link'], close: ['إغلاق', 'Close'],
+    cmpTitle: ['مقارنة الوحدات', 'Compare units'], cmpBest: ['الأخضر هو الأفضل في كل صف.', 'Green is the best value in each row.'],
+    cmpRows: [['السعر', 'Price'], ['سعر المتر', 'Price per m²'], ['المساحة', 'Area'], ['غرف النوم', 'Bedrooms'], ['المقدم', 'Down payment'], ['مدة التقسيط', 'Plan length'], ['المنطقة', 'Area'], ['التشطيب', 'Finishing'], ['الاستلام', 'Handover']],
+    demo: ['مشروع تجريبي ضمن معرض أعمال · سعر الصرف تقريبي للعرض', 'Demo project for a portfolio · exchange rate is approximate'], credit: ['تصميم وبرمجة: محمد يحيى', 'Designed & built by Mohamed Yehia'],
+    unitPlan: { bed: ['غرفة نوم', 'Bedroom'], master: ['الغرفة الرئيسية', 'Master bedroom'], rec: ['ريسبشن', 'Reception'], kit: ['مطبخ', 'Kitchen'], bath: ['حمام', 'Bath'], hall: ['مدخل', 'Entry'], terr: ['تراس', 'Terrace'] }
+  };
+  var t = function (k, v) { var s = I[k]; s = Array.isArray(s) ? s[LI()] : k; if (v) Object.keys(v).forEach(function (x) { s = s.replace('{' + x + '}', v[x]); }); return s; };
+  var tx = function (p) { return Array.isArray(p) ? p[LI()] : p; };
+
+  var D = {
+    newcairo: { n: ['التجمع الخامس', 'New Cairo'], x: 520, y: 285, rent: 0.07 },
+    madinaty: { n: ['مدينتي', 'Madinaty'], x: 610, y: 200, rent: 0.065 },
+    mostakbal: { n: ['مستقبل سيتي', 'Mostakbal City'], x: 640, y: 290, rent: 0.06 },
+    capital: { n: ['العاصمة الإدارية', 'New Capital'], x: 735, y: 330, rent: 0.055 },
+    maadi: { n: ['المعادي', 'Maadi'], x: 375, y: 310, rent: 0.075 },
+    zamalek: { n: ['الزمالك', 'Zamalek'], x: 333, y: 215, rent: 0.06 },
+    zayed: { n: ['الشيخ زايد', 'Sheikh Zayed'], x: 150, y: 205, rent: 0.07 },
+    october: { n: ['٦ أكتوبر', '6th of October'], x: 125, y: 300, rent: 0.075 },
+    sahel: { n: ['الساحل الشمالي', 'North Coast'], x: 60, y: 60, rent: 0.05, off: [-1, 230] },
+    sokhna: { n: ['العين السخنة', 'Ain Sokhna'], x: 750, y: 440, rent: 0.05, off: [1, 120] }
+  };
+  var TYPES = { apt: ['شقة', 'Apartment'], duplex: ['دوبلكس', 'Duplex'], town: ['تاون هاوس', 'Townhouse'], twin: ['توين هاوس', 'Twin house'], villa: ['فيلا مستقلة', 'Standalone villa'], chalet: ['شاليه', 'Chalet'] };
+  var FEAT = { club: ['نادي اجتماعي', 'Clubhouse'], pool: ['حمامات سباحة', 'Pools'], gym: ['جيم', 'Gym'], sec: ['أمن ٢٤ ساعة', '24/7 security'], garden: ['حديقة خاصة', 'Private garden'], beach: ['شاطئ خاص', 'Private beach'], lagoon: ['لاجون', 'Lagoon'], mall: ['مول تجاري', 'Mall'], mono: ['قرب المونوريل', 'Near the monorail'], school: ['مدارس دولية', 'International schools'], nile: ['إطلالة على النيل', 'Nile view'], river: ['قرب النهر الأخضر', 'Near the Green River'] };
+
+  // price in EGP; down = minimum down payment %; years = developer plan (0 = cash); disc = cash discount %
+  var L = [
+    { id: 'D-201', d: 'newcairo', type: 'apt', c: ['كمبوند النخيل هايتس', 'Palm Heights'], t: ['شقة ٣ غرف بحديقة في التجمع الخامس', '3-bed garden apartment in New Cairo'], beds: 3, baths: 3, area: 175, floor: 0, floors: 4, price: 9800000, down: 10, years: 8, disc: 15, deliver: 2027, finish: 'core', feat: ['club', 'pool', 'sec', 'school', 'garden'], added: 3, bal: 1 },
+    { id: 'D-202', d: 'zayed', type: 'town', c: ['كمبوند وادي الياسمين', 'Yasmine Valley'], t: ['تاون هاوس طرفي في الشيخ زايد', 'Corner townhouse in Sheikh Zayed'], beds: 4, baths: 4, area: 240, floors: 3, price: 21500000, down: 10, years: 7, disc: 12, deliver: 2028, finish: 'semi', feat: ['club', 'pool', 'gym', 'sec', 'garden'], added: 6 },
+    { id: 'D-203', d: 'capital', type: 'apt', c: ['ريفر جاردنز', 'River Gardens'], t: ['شقة غرفتين بمقدم ٥٪ في العاصمة', '2-bed apartment, 5% down, New Capital'], beds: 2, baths: 2, area: 120, floor: 5, floors: 10, price: 6200000, down: 5, years: 10, disc: 18, deliver: 2028, finish: 'full', feat: ['club', 'pool', 'sec', 'mono', 'river'], added: 1, bal: 1 },
+    { id: 'D-204', d: 'sahel', type: 'chalet', c: ['لاجونا باي', 'Laguna Bay'], t: ['شاليه أول صف على اللاجون في الساحل', 'Lagoon-front chalet on the North Coast'], beds: 2, baths: 2, area: 110, floor: 1, floors: 2, price: 14200000, down: 10, years: 8, disc: 10, deliver: 2027, finish: 'full', feat: ['beach', 'lagoon', 'pool', 'sec'], added: 2, sea: 1, bal: 1 },
+    { id: 'D-205', d: 'madinaty', type: 'apt', c: ['مدينتي، الحي السابع', 'Madinaty, District 7'], t: ['شقة ٣ غرف جاهزة في مدينتي', 'Ready 3-bed apartment in Madinaty'], beds: 3, baths: 2, area: 150, floor: 3, floors: 6, price: 7900000, down: 0, years: 0, disc: 0, deliver: 0, finish: 'full', resale: 1, feat: ['club', 'mall', 'school', 'sec'], added: 9, bal: 1 },
+    { id: 'D-206', d: 'zamalek', type: 'apt', c: ['شارع أبو الفدا', 'Abu El Feda St'], t: ['شقة على النيل في الزمالك', 'Nile-view apartment in Zamalek'], beds: 3, baths: 3, area: 230, floor: 8, floors: 12, price: 34000000, down: 0, years: 0, disc: 0, deliver: 0, finish: 'full', resale: 1, feat: ['nile', 'sec'], added: 12, bal: 1 },
+    { id: 'D-207', d: 'maadi', type: 'duplex', c: ['المعادي الجديدة', 'New Maadi'], t: ['دوبلكس بروف في المعادي', 'Penthouse duplex with roof in Maadi'], beds: 4, baths: 3, area: 260, floor: 5, floors: 6, price: 18500000, down: 0, years: 0, disc: 0, deliver: 0, finish: 'semi', resale: 1, feat: ['sec', 'school'], added: 8, bal: 1 },
+    { id: 'D-208', d: 'october', type: 'apt', c: ['كمبوند صن رايز', 'Sunrise Residence'], t: ['شقة غرفتين بتقسيط ٨ سنوات في أكتوبر', '2-bed apartment, 8-year plan, October'], beds: 2, baths: 1, area: 115, floor: 2, floors: 7, price: 5400000, down: 10, years: 8, disc: 15, deliver: 2027, finish: 'full', feat: ['club', 'pool', 'sec', 'mall'], added: 4, bal: 1 },
+    { id: 'D-209', d: 'mostakbal', type: 'villa', c: ['كمبوند جرين فيلدز', 'Green Fields'], t: ['فيلا مستقلة بحمام سباحة في مستقبل سيتي', 'Standalone villa with pool, Mostakbal City'], beds: 5, baths: 5, area: 340, floors: 3, price: 29000000, down: 10, years: 8, disc: 14, deliver: 2029, finish: 'core', feat: ['club', 'pool', 'garden', 'sec', 'school'], added: 5 },
+    { id: 'D-210', d: 'sokhna', type: 'chalet', c: ['سخنة هايتس', 'Sokhna Heights'], t: ['شاليه بإطلالة على البحر في السخنة', 'Sea-view chalet in Ain Sokhna'], beds: 1, baths: 1, area: 85, floor: 2, floors: 4, price: 6900000, down: 10, years: 7, disc: 10, deliver: 0, finish: 'full', feat: ['beach', 'pool', 'sec'], added: 7, sea: 1, bal: 1 },
+    { id: 'D-211', d: 'newcairo', type: 'twin', c: ['كمبوند الريحان', 'Rayhan Park'], t: ['توين هاوس بحديقة في القاهرة الجديدة', 'Twin house with garden, New Cairo'], beds: 4, baths: 4, area: 290, floors: 3, price: 26500000, down: 10, years: 8, disc: 12, deliver: 2028, finish: 'semi', feat: ['club', 'pool', 'gym', 'garden', 'sec'], added: 10 },
+    { id: 'D-212', d: 'zayed', type: 'apt', c: ['كمبوند الأندلس', 'Andalus Residence'], t: ['شقة ٣ غرف قرب المحور في زايد', '3-bed apartment near the axis, Zayed'], beds: 3, baths: 2, area: 155, floor: 4, floors: 7, price: 9100000, down: 15, years: 6, disc: 10, deliver: 2026, finish: 'full', feat: ['club', 'gym', 'sec', 'mall'], added: 11, bal: 1 },
+    { id: 'D-213', d: 'capital', type: 'duplex', c: ['المنطقة R7', 'R7 district'], t: ['دوبلكس ٤ غرف بتقسيط ١٠ سنوات', '4-bed duplex, 10-year plan, New Capital'], beds: 4, baths: 3, area: 220, floor: 6, floors: 7, price: 11800000, down: 5, years: 10, disc: 18, deliver: 2029, finish: 'semi', feat: ['club', 'pool', 'mono', 'school'], added: 13, bal: 1 },
+    { id: 'D-214', d: 'sahel', type: 'villa', c: ['رمال باي', 'Rimal Bay'], t: ['فيلا على البحر في الساحل الشمالي', 'Beachfront villa on the North Coast'], beds: 5, baths: 5, area: 380, floors: 2, price: 68000000, down: 10, years: 8, disc: 10, deliver: 2028, finish: 'full', feat: ['beach', 'pool', 'garden', 'sec'], added: 14, sea: 1 }
+  ];
+  var byId = {}; L.forEach(function (x) { byId[x.id] = x; });
+
+  var $ = function (s, el) { return (el || document).querySelector(s); };
+  var $$ = function (s, el) { return Array.prototype.slice.call((el || document).querySelectorAll(s)); };
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem('darak.' + k); return v == null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem('darak.' + k, JSON.stringify(v)); } catch (e) {} }
+  };
+  var esc = function (s) { return String(s).replace(/[&<>"']/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]; }); };
+  function toast(m) { var el = $('#toast'); el.textContent = m; el.classList.add('on'); clearTimeout(toast.t); toast.t = setTimeout(function () { el.classList.remove('on'); }, 2000); }
+  function copyText(text) {
+    var ok = function () { toast(t('copied')); };
+    var fb = function () { var ta = document.createElement('textarea'); ta.value = text; ta.style.position = 'fixed'; ta.style.opacity = 0; document.body.appendChild(ta); ta.select(); try { document.execCommand('copy'); ok(); } catch (e) {} ta.remove(); };
+    try { navigator.clipboard.writeText(text).then(ok, fb); } catch (e) { fb(); }
+  }
+  var cur = store.get('cur', 'EGP');
+  function raw(egp, compact) {
+    var v = cur === 'USD' ? egp / CONFIG.usdRate : egp, sym = cur === 'USD' ? '$' : (lang === 'ar' ? ' ج.م' : ' EGP'), s;
+    if (compact && v >= 1e6) s = (v / 1e6).toFixed(v >= 1e7 ? 1 : 2).replace(/\.?0+$/, '') + 'M';
+    else if (compact && v >= 1e4) s = Math.round(v / 1e3) + 'K';
+    else s = Math.round(v).toLocaleString('en-US');
+    return cur === 'USD' ? sym + s : s + sym;
+  }
+  var money = function (egp, compact) { return '<span class="ltr">' + raw(egp, compact) + '</span>'; };
+  var moneyTxt = function (egp) { return '⁦' + raw(egp) + '⁩'; };
+
+  /* ---------------------------------------------------------------
+     Procedural art: Cairo skyline, facades, floor plans (memoised)
+  ---------------------------------------------------------------- */
+  function hash(s) { var h = 2166136261; for (var i = 0; i < s.length; i++) { h ^= s.charCodeAt(i); h = Math.imul(h, 16777619); } return h >>> 0; }
+  function rng(seed) { return function () { seed = (seed + 0x6D2B79F5) | 0; var x = Math.imul(seed ^ (seed >>> 15), 1 | seed); x = (x + Math.imul(x ^ (x >>> 7), 61 | x)) ^ x; return ((x ^ (x >>> 14)) >>> 0) / 4294967296; }; }
+  function drawSky() {
+    var r = rng(11), base = 430, s = '<defs><linearGradient id="skyG" x1="0" y1="0" x2="0" y2="1"><stop offset="0" style="stop-color:var(--sky1)"/><stop offset="1" style="stop-color:var(--sky2)"/></linearGradient></defs><rect width="1400" height="520" fill="url(#skyG)"/>';
+    s += '<circle cx="1180" cy="120" r="46" style="fill:var(--gold)" opacity=".35"/>';
+    // pyramids on the horizon
+    s += '<g style="fill:var(--city)" opacity=".22"><path d="M40 ' + base + ' L170 ' + (base - 120) + ' L300 ' + base + 'Z"/><path d="M230 ' + base + ' L330 ' + (base - 92) + ' L430 ' + base + 'Z"/><path d="M400 ' + base + ' L455 ' + (base - 50) + ' L510 ' + base + 'Z"/></g>';
+    var x = 470;
+    while (x < 1400) { var w = 18 + r() * 34, h = 20 + r() * 80; s += '<rect x="' + x.toFixed(0) + '" y="' + (base - h).toFixed(0) + '" width="' + w.toFixed(0) + '" height="' + (h + 4).toFixed(0) + '" style="fill:var(--city)" opacity="' + (0.3 + r() * 0.2).toFixed(2) + '"/>'; x += w + 2; }
+    // Cairo Tower (lotus lattice)
+    s += '<g transform="translate(720 ' + base + ')" style="fill:var(--city)" opacity=".9"><path d="M-9 0 L-6 -170 L6 -170 L9 0Z"/><path d="M-16 -170 Q0 -196 16 -170 L12 -184 Q0 -204 -12 -184Z"/><rect x="-2" y="-218" width="4" height="34"/></g>';
+    // mosque with two pencil minarets
+    s += '<g transform="translate(1040 ' + base + ') scale(.9)" style="fill:var(--city)" opacity=".85"><rect x="-80" y="-40" width="160" height="40"/><path d="M-50 -40 A50 50 0 0 1 50 -40Z"/><path d="M-90 -30 A20 20 0 0 1 -50 -30Z M50 -30 A20 20 0 0 1 90 -30Z"/>' +
+      [-110, 110].map(function (m) { return '<rect x="' + (m - 4) + '" y="-180" width="8" height="180"/><path d="M' + (m - 5) + ' -180 L' + m + ' -206 L' + (m + 5) + ' -180Z"/>'; }).join('') + '</g>';
+    // Nile and feluccas
+    s += '<rect x="0" y="' + base + '" width="1400" height="' + (520 - base) + '" style="fill:var(--sea)" opacity=".85"/>';
+    for (var i = 0; i < 24; i++) { var wx = r() * 1400, wy = base + 14 + r() * 70; s += '<path d="M' + wx.toFixed(0) + ' ' + wy.toFixed(0) + ' q8 -4 16 0" fill="none" stroke="#fff" stroke-opacity=".35" stroke-width="2"/>'; }
+    var felucca = function (cls, y, sc) { return '<g class="boat ' + cls + '"><g transform="translate(0 ' + y + ') scale(' + sc + ')"><path d="M0 0 h60 l-8 10 h-44z" fill="#fff"/><path d="M28 -2 L28 -64 L62 -6Z" fill="#fff" opacity=".95"/><path d="M28 -64 L8 -10" stroke="#fff" stroke-width="2"/></g></g>'; };
+    s += felucca('', base + 46, 1) + felucca('b2', base + 74, 0.7);
+    $('#sky').innerHTML = s;
+  }
+  var artCache = {};
+  function facade(x, w, h) {
+    var key = x.id + w + 'x' + h; if (artCache[key]) return artCache[key];
+    var r = rng(hash(x.id)), s = '', ground = h - 24;
+    s += '<rect x="0" y="' + ground + '" width="' + w + '" height="24" style="fill:var(--land2)"/>';
+    if (x.sea) s += '<rect x="0" y="' + (ground + 6) + '" width="' + w + '" height="18" fill="#3fa9c9" opacity=".7"/>';
+    for (var i = 0; i < 5; i++) { var bw = 26 + r() * 30, bh = 30 + r() * 70, bx = r() * w; s += '<rect x="' + bx.toFixed(0) + '" y="' + (ground - bh).toFixed(0) + '" width="' + bw.toFixed(0) + '" height="' + bh.toFixed(0) + '" style="fill:var(--city)" opacity=".1"/>'; }
+    var pal = [['#efe6d6', '#cdbfa7'], ['#f5f2ec', '#d6cdbd'], ['#e2d3bb', '#bba584'], ['#e9ecec', '#bcc4c6']][Math.floor(r() * 4)];
+    if (x.type === 'villa' || x.type === 'twin' || x.type === 'town' || (x.type === 'chalet' && x.floors <= 2)) {
+      var units = x.type === 'town' ? 3 : x.type === 'twin' ? 2 : 1, vw = w * (x.type === 'villa' ? 0.5 : 0.7), vx = (w - vw) / 2, fh = 34, floors = Math.min(x.floors, 3), uw = vw / units;
+      s += '<rect x="' + (vx - 20) + '" y="' + (ground - 6) + '" width="' + (vw + 40) + '" height="8" fill="#6a9a4a" opacity=".7"/>';
+      for (var u = 0; u < units; u++) {
+        var ux = vx + u * uw, mine = u === Math.floor(units / 2);
+        for (var f = 0; f < floors; f++) {
+          var fy = ground - (f + 1) * fh;
+          s += '<rect x="' + ux + '" y="' + fy + '" width="' + uw + '" height="' + fh + '" fill="' + pal[0] + '" stroke="' + pal[1] + '"/>';
+          for (var c = 0; c < 2; c++) s += '<rect x="' + (ux + 8 + c * (uw - 16) / 2) + '" y="' + (fy + 8) + '" width="' + ((uw - 16) / 2 - 8) + '" height="' + (fh - 14) + '" fill="' + (mine && units > 1 ? 'var(--gold)' : '#2b4a57') + '" opacity="' + (mine && units > 1 ? 0.9 : 0.75) + '"/>';
+        }
+      }
+      var top = ground - floors * fh;
+      s += x.type === 'chalet' ? '<rect x="' + (vx - 8) + '" y="' + (top - 6) + '" width="' + (vw + 16) + '" height="6" fill="' + pal[1] + '"/>' : '<rect x="' + (vx - 6) + '" y="' + (top - 8) + '" width="' + (vw + 12) + '" height="8" fill="' + pal[1] + '"/>';
+      s += '<circle cx="' + (vx - 24) + '" cy="' + (ground - 24) + '" r="17" fill="#4f7d3a"/><circle cx="' + (vx + vw + 26) + '" cy="' + (ground - 20) + '" r="14" fill="#5f8f45"/>';
+      if (x.feat.indexOf('pool') > -1 && x.type !== 'town') s += '<rect x="' + (vx + vw * 0.15) + '" y="' + (ground + 4) + '" width="' + (vw * 0.5) + '" height="9" rx="3" fill="#5fc4dd"/>';
+      return (artCache[key] = s);
+    }
+    var floorsShown = Math.min(x.floors, 12), fh2 = Math.min(13, (ground - 14) / floorsShown), bw2 = w * 0.5, bx2 = (w - bw2) / 2, top2 = ground - floorsShown * fh2, cols = 4;
+    var mineF = Math.max(1, Math.round((x.floor + 1) / x.floors * floorsShown));
+    s += '<rect x="' + bx2 + '" y="' + top2 + '" width="' + bw2 + '" height="' + (ground - top2) + '" fill="' + pal[0] + '" stroke="' + pal[1] + '"/>';
+    for (var fl = 0; fl < floorsShown; fl++) {
+      var y = ground - (fl + 1) * fh2, isMine = fl + 1 === mineF;
+      for (var c2 = 0; c2 < cols; c2++) { var wx2 = bx2 + 5 + c2 * (bw2 - 10) / cols, ww = (bw2 - 10) / cols - 4; s += '<rect x="' + wx2.toFixed(1) + '" y="' + (y + 2.5).toFixed(1) + '" width="' + ww.toFixed(1) + '" height="' + (fh2 - 5).toFixed(1) + '" fill="' + (isMine ? 'var(--gold)' : '#2b4a57') + '" opacity="' + (isMine ? 1 : 0.7) + '"/>'; }
+      if (x.bal) s += '<rect x="' + (bx2 - 4) + '" y="' + (y + fh2 - 3).toFixed(1) + '" width="' + (bw2 + 8) + '" height="2" fill="' + pal[1] + '"/>';
+    }
+    if (x.type === 'duplex') s += '<rect x="' + (bx2 - 6) + '" y="' + (top2 - 6) + '" width="' + (bw2 + 12) + '" height="6" fill="' + pal[1] + '"/>';
+    s += '<rect x="' + (bx2 + bw2 / 2 - 8) + '" y="' + (ground - 12) + '" width="16" height="12" fill="#1d3640"/>';
+    return (artCache[key] = s);
+  }
+  function facadeSVG(x, w, h) { return '<svg viewBox="0 0 ' + w + ' ' + h + '" preserveAspectRatio="xMidYMax slice" aria-hidden="true">' + facade(x, w, h) + '</svg>'; }
+  function floorPlan(x) {
+    var P = I.unitPlan, W = 520, H = 340, pad = 26, iw = W - pad * 2, ih = H - pad * 2 - (x.bal ? 34 : 0);
+    var net = x.area * (x.floors > 1 && x.type !== 'apt' && x.type !== 'chalet' ? 0.82 / Math.min(x.floors, 3) * 1.6 : 0.82), mPerPx = Math.sqrt(net / (iw * ih));
+    var beds = Math.min(x.beds, 4), baths = Math.min(x.baths, 3), topH = ih * 0.44, top = [], i;
+    for (i = 0; i < beds; i++) top.push({ n: i === 0 ? tx(P.master) : tx(P.bed) + ' ' + (i + 1), w: i === 0 ? 1.35 : 1 });
+    if (baths > 1) top.push({ n: tx(P.bath), w: 0.55, wet: 1 });
+    var bottom = [{ n: tx(P.rec), w: 2.3 }, { n: tx(P.kit), w: 1 }, { n: tx(P.hall), w: 0.6, hall: 1 }];
+    for (i = 0; i < baths - (baths > 1 ? 1 : 0); i++) bottom.push({ n: tx(P.bath), w: 0.55, wet: 1 });
+    function lay(list, y, h) { var sum = list.reduce(function (a, q) { return a + q.w; }, 0), cx = pad; return list.map(function (q) { var w = iw * q.w / sum, o = { n: q.n, x: cx, y: y, w: w, h: h, wet: q.wet, hall: q.hall, rec: q.n === tx(P.rec) }; cx += w; return o; }); }
+    var rooms = lay(top, pad, topH).concat(lay(bottom, pad + topH, ih - topH));
+    var s = '<rect width="' + W + '" height="' + H + '" style="fill:var(--surface)"/><defs><pattern id="tile" width="8" height="8" patternUnits="userSpaceOnUse"><path d="M0 0H8V8" fill="none" style="stroke:var(--line)" stroke-width=".8"/></pattern><pattern id="hatch" width="6" height="6" patternUnits="userSpaceOnUse" patternTransform="rotate(45)"><line x1="0" y1="0" x2="0" y2="6" style="stroke:var(--line)" stroke-width="1.5"/></pattern></defs>';
+    rooms.forEach(function (q) {
+      s += '<rect x="' + q.x.toFixed(1) + '" y="' + q.y.toFixed(1) + '" width="' + q.w.toFixed(1) + '" height="' + q.h.toFixed(1) + '" fill="' + (q.wet ? 'url(#tile)' : 'none') + '" style="stroke:var(--ink)" stroke-width="3"/>';
+      var m2 = q.w * q.h * mPerPx * mPerPx, cx = q.x + q.w / 2, cy = q.y + q.h / 2, fs = q.w < 70 ? 10 : 12.5;
+      s += '<text x="' + cx.toFixed(1) + '" y="' + (cy - 2).toFixed(1) + '" text-anchor="middle" font-size="' + fs + '" font-weight="600" style="fill:var(--ink)">' + q.n + '</text><text x="' + cx.toFixed(1) + '" y="' + (cy + 14).toFixed(1) + '" text-anchor="middle" font-size="' + (fs - 1.5) + '" style="fill:var(--muted)">' + m2.toFixed(1) + ' m²</text>';
+      var isTop = q.y < pad + topH - 1, dy = isTop ? q.y + q.h : q.y, dir = isTop ? -1 : 1, dx = q.x + Math.min(14, q.w * 0.2), dw = Math.min(20, q.w * 0.35);
+      if (!q.hall) s += '<line x1="' + dx.toFixed(1) + '" y1="' + dy.toFixed(1) + '" x2="' + (dx + dw).toFixed(1) + '" y2="' + dy.toFixed(1) + '" style="stroke:var(--surface)" stroke-width="4"/><path d="M' + dx.toFixed(1) + ' ' + dy.toFixed(1) + ' l0 ' + (dir * dw).toFixed(1) + ' A' + dw.toFixed(1) + ' ' + dw.toFixed(1) + ' 0 0 ' + (dir > 0 ? 0 : 1) + ' ' + (dx + dw).toFixed(1) + ' ' + dy.toFixed(1) + '" fill="none" style="stroke:var(--muted)" stroke-width="1"/>';
+    });
+    rooms.filter(function (q) { return q.y === pad && !q.wet; }).forEach(function (q) { s += '<rect x="' + (q.x + q.w * 0.25).toFixed(1) + '" y="' + (pad - 2.5) + '" width="' + (q.w * 0.5).toFixed(1) + '" height="5" style="fill:var(--surface);stroke:var(--sea)" stroke-width="1.4"/>'; });
+    var hall = rooms.filter(function (q) { return q.hall; })[0];
+    s += '<line x1="' + (hall.x + 6).toFixed(1) + '" y1="' + (pad + ih) + '" x2="' + (hall.x + hall.w - 6).toFixed(1) + '" y2="' + (pad + ih) + '" style="stroke:var(--surface)" stroke-width="5"/><path d="M' + (hall.x + hall.w / 2) + ' ' + (pad + ih + 16) + ' v-12 m-5 5 l5 -5 l5 5" fill="none" style="stroke:var(--gold)" stroke-width="2"/>';
+    if (x.bal) { var rec = rooms.filter(function (q) { return q.rec; })[0]; s += '<rect x="' + rec.x.toFixed(1) + '" y="' + (pad + ih + 6) + '" width="' + rec.w.toFixed(1) + '" height="24" fill="url(#hatch)" style="stroke:var(--muted)" stroke-dasharray="4 3"/><text x="' + (rec.x + rec.w / 2).toFixed(1) + '" y="' + (pad + ih + 22) + '" text-anchor="middle" font-size="11" style="fill:var(--muted)">' + tx(P.terr) + '</text>'; }
+    var px2 = 2 / mPerPx;
+    s += '<g transform="translate(' + (W - pad - px2) + ' ' + (H - 10) + ')"><path d="M0 0 h' + px2.toFixed(1) + '" style="stroke:var(--ink)" stroke-width="2"/><path d="M0 -4 v8 M' + px2.toFixed(1) + ' -4 v8" style="stroke:var(--ink)" stroke-width="1.5"/><text x="' + (px2 / 2).toFixed(1) + '" y="-6" font-size="10" text-anchor="middle" style="fill:var(--muted)">2 m</text></g>';
+    s += '<text x="' + pad + '" y="' + (H - 6) + '" font-size="10" style="fill:var(--muted)">' + x.id + ' · ' + x.beds + ' BR · ' + x.area + ' m²</text>';
+    return '<svg viewBox="0 0 ' + W + ' ' + H + '" role="img" aria-label="Floor plan">' + s + '</svg>';
+  }
+
+  /* ---------------------------------------------------------------
+     Filtering pipeline: each stage is a small predicate (pipe-and-filter)
+  ---------------------------------------------------------------- */
+  var MAXP = 70000000;
+  var F = { d: [], type: [], beds: [], min: 0, max: MAXP, ready: false, inst: false, full: false, sea: false, fav: false, sort: 'new' };
+  var favs = store.get('favs', []), cmp = [], shown = CONFIG.pageSize;
+  var STAGES = [
+    function (x, o) { return o.ignoreD || !F.d.length || F.d.indexOf(x.d) > -1; },
+    function (x) { return !F.type.length || F.type.indexOf(x.type) > -1; },
+    function (x) { return !F.beds.length || F.beds.indexOf(x.beds >= 5 ? '5' : String(x.beds)) > -1; },
+    function (x) { return x.price >= F.min && (F.max >= MAXP || x.price <= F.max); },
+    function (x) { return !F.ready || x.deliver === 0; },
+    function (x) { return !F.inst || x.years > 0; },
+    function (x) { return !F.full || x.finish === 'full'; },
+    function (x) { return !F.sea || !!x.sea; },
+    function (x) { return !F.fav || favs.indexOf(x.id) > -1; }
+  ];
+  function matches(x, o) { o = o || {}; for (var i = 0; i < STAGES.length; i++) if (!STAGES[i](x, o)) return false; return true; }
+  var SORTS = { new: function (a, b) { return a.added - b.added; }, pa: function (a, b) { return a.price - b.price; }, pd: function (a, b) { return b.price - a.price; }, ppm: function (a, b) { return a.price / a.area - b.price / b.area; }, down: function (a, b) { return (a.years ? a.down : 100) - (b.years ? b.down : 100); } };
+  function results() { return L.filter(function (x) { return matches(x); }).sort(SORTS[F.sort]); }
+
+  function planLine(x) { return x.years ? x.down + '٪ ' + t('down') + ' · ' + x.years + ' ' + t('yrs') : t('cashOnly'); }
+  function planLineEn(x) { return x.years ? x.down + '% ' + t('down') + ' · ' + t('over') + ' ' + x.years + ' ' + t('yrs') : t('cashOnly'); }
+  function card(x) {
+    var fav = favs.indexOf(x.id) > -1, inCmp = cmp.indexOf(x.id) > -1;
+    var flags = '<span class="flag ' + (x.deliver ? '' : 'cit') + '">' + (x.deliver ? t('deliver', { y: x.deliver }) : t('ready')) + '</span>' + (x.resale ? '<span class="flag">' + t('resale') + '</span>' : '') + (x.years >= 8 ? '<span class="flag new">' + (lang === 'ar' ? planLine(x) : planLineEn(x)) + '</span>' : '');
+    return '<article class="card" data-id="' + x.id + '"><div class="pic" data-open="' + x.id + '">' + facadeSVG(x, 400, 250) + '<div class="flags">' + flags + '</div>' +
+      '<button class="fav" type="button" data-fav="' + x.id + '" aria-pressed="' + fav + '" aria-label="Favourite"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 20s-7-4.4-7-10a4 4 0 0 1 7-2.6A4 4 0 0 1 19 10c0 5.6-7 10-7 10z"/></svg></button></div>' +
+      '<div class="body"><div class="loc">' + tx(D[x.d].n) + ' · ' + esc(tx(x.c)) + '</div><h3 data-open="' + x.id + '">' + esc(tx(x.t)) + '</h3>' +
+      '<div class="specs"><span>' + tx(TYPES[x.type]) + '</span><span><b class="num">' + x.beds + '</b> ' + t('bedsS') + '</span><span><b class="num">' + x.area + '</b> ' + t('m2') + '</span><span>' + tx(I.finish[x.finish]) + '</span></div>' +
+      '<div class="price-row"><div><div class="price">' + money(x.price) + '</div><div class="ppm">' + (lang === 'ar' ? planLine(x) : planLineEn(x)) + '</div></div><label class="cmp"><input type="checkbox" data-cmp="' + x.id + '"' + (inCmp ? ' checked' : '') + '> ' + t('compare') + '</label></div></div></article>';
+  }
+  function renderFilters() {
+    $('#fDistricts').innerHTML = Object.keys(D).map(function (k) { var n = L.filter(function (x) { return x.d === k && matches(x, { ignoreD: 1 }); }).length; return '<label><input type="checkbox" data-d="' + k + '"' + (F.d.indexOf(k) > -1 ? ' checked' : '') + '>' + tx(D[k].n) + '<small>' + n + '</small></label>'; }).join('');
+    $('#fTypes').innerHTML = Object.keys(TYPES).map(function (k) { return '<button type="button" class="chip" data-type="' + k + '" aria-pressed="' + (F.type.indexOf(k) > -1) + '">' + tx(TYPES[k]) + '</button>'; }).join('');
+    $('#fBeds').innerHTML = ['1', '2', '3', '4', '5'].map(function (k) { return '<button type="button" class="chip" data-beds="' + k + '" aria-pressed="' + (F.beds.indexOf(k) > -1) + '">' + (k === '5' ? '5+' : k) + '</button>'; }).join('');
+    $('#pMin').value = F.min; $('#pMax').value = Math.min(F.max, MAXP); renderRange();
+    $$('[data-t]').forEach(function (el) { el.checked = !!F[el.getAttribute('data-t')]; });
+    $('#sort').innerHTML = [['new', 'sortNew'], ['pa', 'sortPa'], ['pd', 'sortPd'], ['ppm', 'sortPpm'], ['down', 'sortDown']].map(function (o) { return '<option value="' + o[0] + '"' + (F.sort === o[0] ? ' selected' : '') + '>' + t(o[1]) + '</option>'; }).join('');
+  }
+  function renderRange() {
+    var a = +$('#pMin').value, b = +$('#pMax').value;
+    $('#rFill').style.left = (a / MAXP * 100) + '%'; $('#rFill').style.right = (100 - b / MAXP * 100) + '%';
+    $('#pMinL').innerHTML = money(a, true); $('#pMaxL').innerHTML = b >= MAXP ? money(MAXP, true) + '+' : money(b, true);
+  }
+  function render(keepPage) {
+    var list = results();
+    if (!keepPage) shown = CONFIG.pageSize;
+    $('#count').textContent = list.length + ' ' + t('units');
+    $('#cards').innerHTML = list.length ? list.slice(0, shown).map(card).join('') : '<div class="empty">' + t('empty') + '</div>';
+    var left = list.length - shown, more = $('#more'); more.hidden = left <= 0; more.textContent = t('more', { n: left });
+    renderFilters(); renderMap(); renderStats(); renderFavCount(); renderCmpBar();
+  }
+  function renderStats() {
+    var list = results(), pool = list.length ? list : L;
+    var ppm = pool.reduce(function (a, x) { return a + x.price / x.area; }, 0) / pool.length;
+    $('#stats').innerHTML = '<div class="stat"><b class="num">' + list.length + '</b><span>' + t('stUnits') + '</span></div><div class="stat"><b>' + money(ppm) + '</b><span>' + t('stPpm') + '</span></div>' +
+      '<div class="stat"><b class="num">' + pool.filter(function (x) { return x.years >= 7; }).length + '</b><span>' + t('stInst') + '</span></div><div class="stat"><b class="num">' + pool.filter(function (x) { return !x.deliver; }).length + '</b><span>' + t('stReady') + '</span></div>';
+  }
+  function renderFavCount() { var b = $('#favCount'); b.textContent = favs.length; b.setAttribute('data-n', favs.length); }
+
+  /* ---------------------------------------------------------------
+     Map of Greater Cairo (schematic) with off-map coastal destinations
+  ---------------------------------------------------------------- */
+  function renderMap() {
+    var s = '<rect width="800" height="500" style="fill:var(--land)"/>';
+    s += '<path d="M300 500 C310 420 330 380 335 330 C340 280 320 240 335 200 C350 160 330 100 310 40 L300 0" fill="none" style="stroke:var(--water)" stroke-width="22" stroke-linecap="round"/>';
+    s += '<ellipse cx="333" cy="215" rx="7" ry="26" style="fill:var(--land)"/>';
+    s += '<path d="M310 40 C260 20 200 10 120 0 M310 40 C360 18 420 8 500 0" fill="none" style="stroke:var(--water)" stroke-width="12"/>';
+    s += '<text x="300" y="470" font-size="13" style="fill:var(--sea)" text-anchor="middle" transform="rotate(-80 300 470)">' + t('nile') + '</text>';
+    s += '<g style="stroke:var(--line)" stroke-width="5" fill="none" stroke-linecap="round"><path d="M180 210 C260 230 300 250 420 270 S600 300 740 330"/><path d="M380 300 C450 250 560 220 610 200"/><path d="M150 205 L125 300"/></g>';
+    Object.keys(D).forEach(function (k) {
+      var d = D[k], n = L.filter(function (x) { return x.d === k && matches(x, { ignoreD: 1 }); }).length, on = F.d.indexOf(k) > -1;
+      if (d.off) {
+        var ax = d.off[0] < 0 ? d.x + 60 : d.x - 60, ay = d.off[0] < 0 ? d.y + 50 : d.y - 50;
+        s += '<path d="M' + ax + ' ' + ay + ' L' + d.x + ' ' + d.y + '" style="stroke:var(--muted)" stroke-width="1.5" stroke-dasharray="4 4"/><text x="' + d.x + '" y="' + (d.y + (d.off[0] < 0 ? -26 : 40)) + '" font-size="11" text-anchor="middle" style="fill:var(--muted)">' + d.off[1] + ' ' + t('km') + '</text>';
+      }
+      s += '<g class="pin' + (on ? ' on' : '') + '" data-pin="' + k + '" tabindex="0" role="button" aria-label="' + tx(d.n) + ', ' + n + '" opacity="' + (n ? 1 : 0.35) + '"><circle class="ring" cx="' + d.x + '" cy="' + d.y + '" r="22" fill="none" style="stroke:var(--sea)" stroke-width="2" stroke-opacity=".35"/><circle class="dot" cx="' + d.x + '" cy="' + d.y + '" r="16" style="fill:' + (on ? 'var(--gold)' : 'var(--sea)') + '"/><text x="' + d.x + '" y="' + (d.y + 5) + '" text-anchor="middle" font-size="13" font-weight="700" style="fill:var(--sea-ink)">' + n + '</text><text x="' + d.x + '" y="' + (d.y + 38) + '" text-anchor="middle" font-size="12" style="fill:var(--ink)">' + tx(d.n) + '</text></g>';
+    });
+    $('#mapSvg').innerHTML = s;
+    $('#mapHint').textContent = F.d.length ? t('selected') + F.d.map(function (k) { return tx(D[k].n); }).join(lang === 'ar' ? '، ' : ', ') : '';
+  }
+
+  /* ---------------------------------------------------------------
+     Detail dialog with payment plan and extra costs
+  ---------------------------------------------------------------- */
+  function openDetail(id, push) {
+    var x = byId[id]; if (!x) return;
+    var maint = x.price * CONFIG.maintenance, fees = x.price * CONFIG.contractFees;
+    var pay = x.years ?
+      '<div class="calc"><h4>' + t('payTitle') + '</h4><label class="note" for="dp">' + t('downL') + ': <b id="dpL"></b></label><input class="slider" type="range" id="dp" min="' + x.down + '" max="50" step="5" value="' + x.down + '">' +
+      '<label class="note" for="yr">' + t('yearsL') + ': <b id="yrL"></b></label><input class="slider" type="range" id="yr" min="1" max="' + x.years + '" step="1" value="' + x.years + '">' +
+      '<div class="seg" role="group" style="justify-self:start"><button type="button" data-freq="4" aria-pressed="true">' + t('quarterly') + '</button><button type="button" data-freq="12" aria-pressed="false">' + t('monthly') + '</button></div>' +
+      '<div class="crow"><span>' + t('downL') + '</span><b id="dpV"></b></div><div class="crow total"><span id="instL">' + t('perQ') + '</span><b id="instV"></b></div>' + (x.disc ? '<p class="note" style="margin:0">' + t('cashDisc', { p: x.disc }) + '</p>' : '') + '</div>' :
+      '<div class="calc"><h4>' + t('payTitle') + '</h4><p class="note" style="margin:0">' + t('cashNote') + '</p></div>';
+    var facts = [[t('fBedsL'), x.beds], [t('fBathsL'), x.baths], [t('fArea2'), x.area + ' ' + t('m2')], [t('fFinish'), tx(I.finish[x.finish])], [t('fStatus'), x.deliver ? x.deliver : t('ready')], [t('fCompound'), esc(tx(x.c))]];
+    $('#dlg').innerHTML = '<div class="dlg-head"><div><div class="loc" style="font-size:.8rem;color:var(--muted)">' + tx(D[x.d].n) + ' · <span class="ltr">' + x.id + '</span></div><h3 id="dlgTitle">' + esc(tx(x.t)) + '</h3></div><button class="icon" type="button" data-close aria-label="' + t('close') + '">✕</button></div>' +
+      '<div class="dlg-body"><div><div class="views seg" role="group"><button type="button" data-view="plan" aria-pressed="true">' + t('plan') + '</button><button type="button" data-view="out" aria-pressed="false">' + t('building') + '</button></div><div class="viewbox" id="viewbox">' + floorPlan(x) + '</div>' +
+      '<p class="note">' + t('planNote') + (x.type === 'apt' || x.type === 'duplex' ? ' ' + t('litFloor') : '') + '</p><div class="facts">' + facts.map(function (f) { return '<div><span>' + f[0] + '</span><b>' + f[1] + '</b></div>'; }).join('') + '</div>' +
+      '<div class="feat">' + x.feat.map(function (f) { return '<span>' + tx(FEAT[f]) + '</span>'; }).join('') + '</div></div>' +
+      '<div style="display:grid;gap:.9rem;align-content:start"><div><div class="price" style="font-size:2rem">' + money(x.price) + '</div><div class="ppm">' + money(x.price / x.area) + ' ' + t('perM2') + '</div></div>' + pay +
+      '<div class="calc"><h4>' + t('costTitle') + '</h4><div class="crow"><span>' + t('maint') + '</span><b>' + money(maint) + '</b></div><div class="crow"><span>' + t('fees') + '</span><b>' + money(fees) + '</b></div><div class="crow total"><span>' + t('extraTotal') + '</span><b>' + money(maint + fees) + '</b></div></div>' +
+      '<div class="row"><a class="btn primary" href="#contact" data-ask="' + x.id + '">' + t('askView') + '</a><button class="btn ghost" type="button" data-share="' + x.id + '">' + t('share') + '</button></div></div></div>';
+    var dlg = $('#dlg'); if (!dlg.open) dlg.showModal();
+    if (push !== false && location.hash !== '#' + id) history.replaceState(null, '', '#' + id);
+    if (x.years) {
+      var freq = 4;
+      var upd = function () {
+        var dp = +$('#dp').value, yr = +$('#yr').value, down = x.price * dp / 100, n = yr * freq;
+        $('#dpL').textContent = dp + (lang === 'ar' ? '٪' : '%'); $('#yrL').textContent = yr + ' ' + t('yrs');
+        $('#dpV').innerHTML = money(down); $('#instV').innerHTML = money((x.price - down) / n); $('#instL').textContent = freq === 4 ? t('perQ') : t('perM');
+      };
+      $('#dp').addEventListener('input', upd); $('#yr').addEventListener('input', upd);
+      $$('[data-freq]', dlg).forEach(function (b) { b.addEventListener('click', function () { freq = +b.getAttribute('data-freq'); $$('[data-freq]', dlg).forEach(function (o) { o.setAttribute('aria-pressed', o === b); }); upd(); }); });
+      upd();
+    }
+    $$('[data-view]', dlg).forEach(function (b) { b.addEventListener('click', function () { $$('[data-view]', dlg).forEach(function (o) { o.setAttribute('aria-pressed', o === b); }); $('#viewbox').innerHTML = b.getAttribute('data-view') === 'plan' ? floorPlan(x) : facadeSVG(x, 520, 340); }); });
+  }
+  $('#dlg').addEventListener('close', function () { if (/^#D-\d+$/.test(location.hash)) history.replaceState(null, '', location.pathname + location.search); });
+
+  /* ---------------------------------------------------------------
+     Compare
+  ---------------------------------------------------------------- */
+  function renderCmpBar() { $('#cmpbar').classList.toggle('on', cmp.length > 0); $('#cmpTxt').textContent = cmp.length + ' ' + t('cmpOf'); $('#cmpOpen').disabled = cmp.length < 2; $('#cmpOpen').style.opacity = cmp.length < 2 ? 0.5 : 1; }
+  function openCompare() {
+    var xs = cmp.map(function (id) { return byId[id]; }), R = I.cmpRows;
+    var rows = [
+      [R[0], function (x) { return x.price; }, function (x) { return money(x.price); }, 'min'],
+      [R[1], function (x) { return x.price / x.area; }, function (x) { return money(x.price / x.area); }, 'min'],
+      [R[2], function (x) { return x.area; }, function (x) { return x.area + ' ' + t('m2'); }, 'max'],
+      [R[3], function (x) { return x.beds; }, function (x) { return x.beds; }, 'max'],
+      [R[4], function (x) { return x.years ? x.down : 100; }, function (x) { return x.years ? x.down + '%' : t('cashOnly'); }, 'min'],
+      [R[5], function (x) { return x.years; }, function (x) { return x.years ? x.years + ' ' + t('yrs') : '—'; }, 'max'],
+      [R[6], null, function (x) { return tx(D[x.d].n); }],
+      [R[7], null, function (x) { return tx(I.finish[x.finish]); }],
+      [R[8], null, function (x) { return x.deliver || t('ready'); }]
+    ];
+    var html = '<div class="dlg-head"><h3>' + t('cmpTitle') + '</h3><button class="icon" type="button" data-close aria-label="' + t('close') + '">✕</button></div><div class="scroll-x" style="padding:1rem 1.2rem"><table class="ctable"><thead><tr><th></th>' + xs.map(function (x) { return '<th style="color:var(--ink);font-weight:700"><span class="ltr">' + x.id + '</span><br><small style="color:var(--muted);font-weight:400">' + esc(tx(x.t)) + '</small></th>'; }).join('') + '</tr></thead><tbody>';
+    rows.forEach(function (r) {
+      var best = null; if (r[1]) { var v = xs.map(r[1]); best = r[3] === 'min' ? Math.min.apply(null, v) : Math.max.apply(null, v); }
+      html += '<tr><th>' + tx(r[0]) + '</th>' + xs.map(function (x) { return '<td class="' + (r[1] && r[1](x) === best ? 'best' : '') + '">' + r[2](x) + '</td>'; }).join('') + '</tr>';
+    });
+    $('#cmpDlg').innerHTML = html + '</tbody></table><p class="note">' + t('cmpBest') + '</p></div>'; $('#cmpDlg').showModal();
+  }
+
+  /* ---------------------------------------------------------------
+     ROI calculator
+  ---------------------------------------------------------------- */
+  var roiUnit = L[0].id;
+  function suggestedRent(x) { return Math.round(x.price * D[x.d].rent / 12 / 1000) * 1000; }
+  function renderRoiSelect() {
+    $('#iUnit').innerHTML = L.map(function (x) { return '<option value="' + x.id + '"' + (x.id === roiUnit ? ' selected' : '') + '>' + x.id + ' · ' + esc(tx(x.t)) + '</option>'; }).join('');
+  }
+  function setRoiUnit(id) { roiUnit = id; var x = byId[id], rent = suggestedRent(x), el = $('#iRent'); el.max = Math.max(300000, rent * 2); el.value = rent; renderRoi(); }
+  function renderRoi() {
+    var x = byId[roiUnit], rent = +$('#iRent').value, occ = +$('#iOcc').value / 100, cost = +$('#iCost').value / 100;
+    var gross = rent * 12 * occ, net = gross * (1 - cost), gy = gross / x.price * 100, ny = net / x.price * 100, pay = net > 0 ? x.price / net : Infinity;
+    $('#iRentL').innerHTML = money(rent); $('#iOccL').textContent = Math.round(occ * 100) + '%'; $('#iCostL').textContent = Math.round(cost * 100) + '%';
+    var v = ny >= 7 ? ['ok', t('vGood')] : ny >= 4.5 ? ['', t('vMid')] : ['low', t('vLow')];
+    $('#roi').innerHTML = '<div class="roi-grid"><div><span>' + t('rGross') + '</span><b class="num">' + gy.toFixed(1) + '%</b></div><div><span>' + t('rNet') + '</span><b class="num">' + ny.toFixed(1) + '%</b></div><div><span>' + t('rYear') + '</span><b>' + money(net) + '</b></div><div><span>' + t('rPay') + '</span><b class="num">' + (isFinite(pay) ? pay.toFixed(1) : '—') + ' ' + t('years') + '</b></div></div>' +
+      '<div class="meter ' + (v[0] === 'ok' ? 'ok' : '') + '"><i style="width:' + Math.min(100, ny / 10 * 100) + '%"></i></div><div class="verdict ' + v[0] + '">' + v[1] + '</div>';
+  }
+
+  /* ---------------------------------------------------------------
+     Events
+  ---------------------------------------------------------------- */
+  function tog(arr, v) { var i = arr.indexOf(v); if (i > -1) arr.splice(i, 1); else arr.push(v); }
+  document.addEventListener('click', function (e) {
+    var el = e.target.closest('[data-open],[data-fav],[data-type],[data-beds],[data-pin],[data-close],[data-ask],[data-share],[data-cur]');
+    if (!el) return;
+    if (el.hasAttribute('data-fav')) { var id = el.getAttribute('data-fav'), i = favs.indexOf(id); if (i > -1) favs.splice(i, 1); else { favs.push(id); toast(t('favAdded')); } store.set('favs', favs); el.setAttribute('aria-pressed', i < 0); renderFavCount(); if (F.fav) render(); return; }
+    if (el.hasAttribute('data-open')) return openDetail(el.getAttribute('data-open'));
+    if (el.hasAttribute('data-type')) { tog(F.type, el.getAttribute('data-type')); return render(); }
+    if (el.hasAttribute('data-beds')) { tog(F.beds, el.getAttribute('data-beds')); return render(); }
+    if (el.hasAttribute('data-pin')) { tog(F.d, el.getAttribute('data-pin')); render(); return document.getElementById('listings').scrollIntoView({ behavior: 'smooth' }); }
+    if (el.hasAttribute('data-close')) { var dl = el.closest('dialog'); if (dl) dl.close(); return; }
+    if (el.hasAttribute('data-ask')) { var x = byId[el.getAttribute('data-ask')]; $('#cMsg').value = x.id + ' · ' + tx(x.t); $('#dlg').close(); return; }
+    if (el.hasAttribute('data-share')) return copyText(location.href.split('#')[0] + '#' + el.getAttribute('data-share'));
+    if (el.hasAttribute('data-cur')) { cur = el.getAttribute('data-cur'); store.set('cur', cur); $$('[data-cur]').forEach(function (b) { b.setAttribute('aria-pressed', b === el); }); render(true); renderRoi(); var hid = location.hash.slice(1); if ($('#dlg').open && byId[hid]) openDetail(hid, false); }
+  });
+  document.addEventListener('change', function (e) {
+    var el = e.target;
+    if (el.hasAttribute('data-d')) { tog(F.d, el.getAttribute('data-d')); render(); }
+    else if (el.hasAttribute('data-t')) { F[el.getAttribute('data-t')] = el.checked; render(); }
+    else if (el.hasAttribute('data-cmp')) {
+      var id = el.getAttribute('data-cmp'), i = cmp.indexOf(id);
+      if (el.checked) { if (cmp.length >= 3) { el.checked = false; toast(t('cmpMax')); return; } cmp.push(id); } else if (i > -1) cmp.splice(i, 1);
+      renderCmpBar();
+    }
+  });
+  $('#mapSvg').addEventListener('keydown', function (e) { var p = e.target.closest('[data-pin]'); if (p && (e.key === 'Enter' || e.key === ' ')) { e.preventDefault(); p.dispatchEvent(new MouseEvent('click', { bubbles: true })); } });
+  $('#cards').addEventListener('mouseover', function (e) { var c = e.target.closest('.card'); $$('.pin').forEach(function (p) { var k = p.getAttribute('data-pin'); p.classList.toggle('on', (!!c && byId[c.getAttribute('data-id')].d === k) || F.d.indexOf(k) > -1); }); });
+  ['#pMin', '#pMax'].forEach(function (s) {
+    $(s).addEventListener('input', function () { var a = +$('#pMin').value, b = +$('#pMax').value; if (a > b - 1000000) { if (s === '#pMin') $('#pMin').value = b - 1000000; else $('#pMax').value = a + 1000000; } renderRange(); });
+    $(s).addEventListener('change', function () { F.min = +$('#pMin').value; F.max = +$('#pMax').value; render(); });
+  });
+  $('#sort').addEventListener('change', function (e) { F.sort = e.target.value; render(); });
+  $('#more').addEventListener('click', function () { shown += CONFIG.pageSize; render(true); });
+  $('#reset').addEventListener('click', function () { F = { d: [], type: [], beds: [], min: 0, max: MAXP, ready: false, inst: false, full: false, sea: false, fav: false, sort: F.sort }; render(); });
+  $('#ftoggle').addEventListener('click', function () { var o = $('#filters').classList.toggle('open'); this.setAttribute('aria-expanded', o); });
+  $('#favBtn').addEventListener('click', function () { F.fav = !F.fav; render(); document.getElementById('listings').scrollIntoView({ behavior: 'smooth' }); });
+  $('#cmpOpen').addEventListener('click', function () { if (cmp.length >= 2) openCompare(); });
+  $('#cmpClear').addEventListener('click', function () { cmp = []; render(true); });
+  $('#heroSearch').addEventListener('submit', function (e) {
+    e.preventDefault();
+    F.d = $('#hDistrict').value ? [$('#hDistrict').value] : []; F.type = $('#hType').value ? [$('#hType').value] : [];
+    F.max = $('#hBudget').value ? +$('#hBudget').value : MAXP; F.min = 0;
+    render(); document.getElementById('listings').scrollIntoView({ behavior: 'smooth' });
+  });
+  $('#iUnit').addEventListener('change', function () { setRoiUnit(this.value); });
+  ['#iRent', '#iOcc', '#iCost'].forEach(function (s) { $(s).addEventListener('input', renderRoi); });
+  $('#contactForm').addEventListener('submit', function (e) {
+    e.preventDefault();
+    var ph = $('#cPhone').value.replace(/[^\d+]/g, '');
+    var ok = need('#cPhone', /^\+?\d{9,15}$/.test(ph), 'errPhone');
+    ok = need('#cName', $('#cName').value.trim().length >= 2, 'errName') && ok;
+    if (!ok) return;
+    var picks = favs.map(function (id) { return byId[id] ? id + ' (' + moneyTxt(byId[id].price) + ')' : ''; }).filter(Boolean);
+    var text = [t('msgHead'), t('msgName') + ': ' + $('#cName').value.trim(), 'WhatsApp: ⁦' + ph + '⁩', t('msgGoal') + ': ' + $('#cGoal').value, t('msgTour') + ': ' + $('#cTour').value, $('#cMsg').value.trim() ? t('msgUnits') + ': ' + $('#cMsg').value.trim() : '', picks.length ? t('msgFav') + ': ' + picks.join(', ') : ''].filter(Boolean).join('\n');
+    $('#contactOut').innerHTML = '<div class="msg">' + esc(text) + '</div><div class="row"><a class="btn primary" target="_blank" rel="noopener" href="https://wa.me/' + CONFIG.whatsapp + '?text=' + encodeURIComponent(text) + '">' + t('sendWa') + '</a><button class="btn ghost" type="button" id="cCopy">' + t('copy') + '</button></div><p class="note">' + t('waNote') + ' <span class="ltr">+' + CONFIG.whatsapp + '</span></p>';
+    $('#cCopy').onclick = function () { copyText(text); };
+  });
+  function need(sel, cond, key) { var f = $(sel).closest('.field'); f.classList.toggle('bad', !cond); f.querySelector('.err').textContent = cond ? '' : t(key); if (!cond) $(sel).focus(); return cond; }
+  $('#themeBtn').addEventListener('click', function () {
+    var r = document.documentElement, c = r.getAttribute('data-theme') || (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+    var n = c === 'dark' ? 'light' : 'dark'; r.setAttribute('data-theme', n); try { localStorage.setItem('darak.theme', n); } catch (e) {}
+  });
+  $('#langBtn').addEventListener('click', function () { lang = lang === 'ar' ? 'en' : 'ar'; try { localStorage.setItem('darak.lang', lang); } catch (e) {} applyLang(); });
+  window.addEventListener('hashchange', function () { var id = location.hash.slice(1); if (byId[id]) openDetail(id, false); });
+
+  function applyLang() {
+    var r = document.documentElement; r.lang = lang; r.dir = lang === 'ar' ? 'rtl' : 'ltr';
+    $$('[data-i18n]').forEach(function (el) { el.textContent = t(el.getAttribute('data-i18n')); });
+    $$('[data-i18n-html]').forEach(function (el) { el.innerHTML = t(el.getAttribute('data-i18n-html')); });
+    $('#langBtn').textContent = lang === 'ar' ? 'EN' : 'ع';
+    $('#hDistrict').innerHTML = '<option value="">' + t('anyArea') + '</option>' + Object.keys(D).map(function (k) { return '<option value="' + k + '">' + tx(D[k].n) + '</option>'; }).join('');
+    $('#hType').innerHTML = '<option value="">' + t('anyType') + '</option>' + Object.keys(TYPES).map(function (k) { return '<option value="' + k + '">' + tx(TYPES[k]) + '</option>'; }).join('');
+    $('#hBudget').innerHTML = '<option value="">' + t('noLimit') + '</option>' + [5e6, 10e6, 20e6, 35e6].map(function (v) { return '<option value="' + v + '">' + raw(v, true) + '</option>'; }).join('');
+    $('#cGoal').innerHTML = I.goals[LI()].map(function (g) { return '<option>' + g + '</option>'; }).join('');
+    $('#cTour').innerHTML = I.tours[LI()].map(function (g) { return '<option>' + g + '</option>'; }).join('');
+    $('#cMsg').placeholder = t('cMsgPh');
+    render(true); renderRoiSelect(); renderRoi();
+    var hid = location.hash.slice(1); if ($('#dlg').open && byId[hid]) openDetail(hid, false);
+  }
+
+  $$('[data-cur]').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-cur') === cur); });
+  $('#phoneTxt').textContent = '+' + CONFIG.whatsapp.replace(/^(\d{2})(\d{3})(\d{3})(\d{4})$/, '$1 $2 $3 $4');
+  $('#yr').textContent = new Date().getFullYear();
+  drawSky(); applyLang(); setRoiUnit(roiUnit);
+  var start = location.hash.slice(1); if (byId[start]) openDetail(start, false);
+})();
+</script>
+</body>
+</html>
